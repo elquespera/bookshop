@@ -4,6 +4,8 @@
     --header-color: beige;
     --header-margin: 10px;
     --header-height: 100px;
+    --light-color: white;
+    --red-color: red;
     --circle-color1: rgb(228, 225, 252);
     --circle-color2: rgb(252, 233, 225);
     --circle-color3: rgb(252, 225, 238);    
@@ -40,14 +42,35 @@ nav h1 {
 
 nav .basket-btn {
     background-image: url('./assets/icons/basket-shopping.svg');
-    width: 30px;
-    height: 30px;
-    margin: 10px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 35px;
+    width: 45px;
+    height: 45px;
+    margin: var(--header-margin);
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+}
+
+nav .basket-btn:hover {
+    cursor: pointer;
+}
+
+nav .basket-count-badge {
+    background-color: var(--red-color);
+    font-size: 0.8rem;
+    color: var(--light-color);
+    padding: 0.2em;
+    width: 1.2em;
+    height: 1.2em;
+    text-align: center;
+    border-radius: 50%;
 }
 
 header {
     position: relative;
-    padding-top: var(--navbar-height);
+    padding-top: 40px;
     height: var(--header-height);
     display: flex;
     flex-flow: column;
