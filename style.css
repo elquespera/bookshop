@@ -57,42 +57,77 @@ nav .basket-btn {
     width: 45px;
     height: 45px;
     margin: var(--header-margin);
-    display: flex;
+    /* display: flex;
     align-items: flex-start;
-    justify-content: flex-end;
+    justify-content: flex-end; */
 }
 
 .basket-btn:hover {
     cursor: pointer;
 }
 
-.basket-count-badge {
-    display: none;
+.badge {
+    position: absolute;
+    top: 5px;
     background-color: var(--red-color);
     font-size: 0.8rem;
     color: var(--light-color);
-    padding: 0.2em;
-    width: 1.4em;
-    height: 1.4em;
+    padding: 0.4em 0;
+    width: 1.8em;
+    height: 1.8em;
     text-align: center;
     border-radius: 50%;
 }
+
+.basket-count-badge {
+    display: none;
+    right: 5px;
+}
+
+.amount-badge {
+    font-size: 1em;
+    padding: 0.7em 0;
+    width: 2.6em;
+    height: 2.6em;
+    left: 5px;
+}
+
+@keyframes basketAnimate {
+    from {opacity: 0}
+    to {opacity: 1}
+  }
 
 nav .basket {
     position: absolute;
     right: 0;
     margin-right: 20px;
-    /* display: none; */
+    min-width: 200px;
+    max-width: 700px;
+    max-height: 90vh;
     background-color: var(--light-color);
-    padding: 20px;
-    box-shadow: 0 0px 6px 0 var(--shadow-color);
+    padding: 40px;
+    box-shadow: 0 0 50px 0px var(--shadow-color);
+    display: none;
+    flex-flow: column nowrap;
+    animation-name: basketAnimate;
+    animation-timing-function: ease-in-out;
+    animation-duration: 0.4s;    
 }
 
-.basket-wrapper {
+.basket-content {
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-between;
-    gap: 20px;    
+    gap: 60px;    
+    overflow-y: auto;
+}
+
+.basket-controls {
+    margin-top: 20px;
+    display: flex;
+    flex-flow: row wrap;
+    gap: 20px;
+    justify-content: flex-end;
 }
 
 header {
@@ -174,13 +209,20 @@ main {
 }
 
 .basket .book-item img {
-    width: 100px;
+    max-height: 200px;
+    width: auto;
+}
+
+.book-item .book-left-pane {
+    position: relative;
+    width: 40%;
 }
 
 .book-item .book-right-pane {
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-between;
+    width: 60%;
 }
 
 .book-controls {

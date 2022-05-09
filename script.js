@@ -32,18 +32,25 @@ window.addEventListener("DOMContentLoaded", () => {
 //function 
 
 function createBookItem(book, basket = false) {
-    let bookControls = '';
+    let bookControls;
+    let countBadge = ''
     if (basket) {
         bookControls = '';
+        if (book.count > 1) {
+            countBadge = `<div class='badge amount-badge'>x${book.count}</div>`;
+        }
     } else {
         bookControls = 
             `<button type="button">Show more</button>
-            <button type="button" onclick="addToBasket(${book.id})">Add to bag</button>`
+            <button type="button" onclick="addToBasketClick(${book.id})">Add to bag</button>`
     }
     const bookItem = document.createElement('div');
     bookItem.className = 'book-item';
     bookItem.innerHTML = 
-            `<img src="./assets/images/${book.imageLink}">
+            `<div class="book-left-pane">
+                ${countBadge}
+                <img src="./assets/images/${book.imageLink}">
+            </div>
             <div class="book-right-pane">
                 <div class="book-info">
                     <h4 class="book-authors">${book.author}</h4>
@@ -71,16 +78,22 @@ function parseBookData () {
 
 class Basket {
     _visible = false;
-    _basket = document.querySelector('.basket-wrapper');
+    _basket = document.querySelector('.basket');
+    _basket_content = document.querySelector('.basket-content');
     _badge = document.querySelector('.basket-count-badge');
     _items = [];
     get visible () {
-        this._visible;
+        return this._visible;
+    }
+
+    get itemsCount () {
+        return this._items.reduce((total, item) => item.count ? total + item.count : total + 1, 0);
     }
 
     get basketEmpty () {
-        return this._items.length === 0;
+        return this.itemsCount === 0;
     }
+
     
     renderBasket = () => {
         const basketFragment = new DocumentFragment();
@@ -91,21 +104,42 @@ class Basket {
                 basketFragment.appendChild(createBookItem(item, true));
             });
         }
-        this._basket.textContent = '';
-        this._basket.appendChild(basketFragment);
+        this._basket_content.textContent = '';
+        this._basket_content.appendChild(basketFragment);
 
-        this._badge.innerHTML = this._items.length;
-        this._badge.style.display = this.basketEmpty === 0 ? 'none' : 'block';
+        this._badge.innerHTML = this.itemsCount;
+        this._badge.style.display = this.basketEmpty ? 'none' : 'block';
     }
 
-    toggleBasket = () => {
+    toggle = () => {
         this._visible = !this._visible;
         this._basket.style.display = this._visible ? 'flex' : 'none';
-        //console.log(this._visible);
     }
+
+    hide = () => {
+        if (this.visible) {this.toggle()}
+    }
+
+    show = () => {
+        if (!this.visible) {this.toggle()}
+    } 
+
+
     addItem = (id) => {
-        this._items.push(bookData[id]);
+        let ind = this._items.findIndex((item, i) => item.id === id);
+        if (ind === -1) {
+            bookData[id].count = 1;
+            this._items.push(bookData[id]);
+        } else {
+            this._items[ind].count += 1;
+        }        
         this.renderBasket();
+    }
+
+    clear = () => {
+        this._items = [];
+        this.renderBasket();
+        console.log(this._items);
     }
 }
 
@@ -115,12 +149,20 @@ window.addEventListener("load", () => {
     basket = new Basket(); 
 })
 
+window.addEventListener("click", () => {  
+    // if (basket.visible) {basket.toggle()}
+})
 
 function basketButtonClick() {
-    basket.toggleBasket();
+    basket.toggle();
 }
 
-function addToBasket(id) {
+function addToBasketClick(id) {
     basket.addItem(id);
+    basket.show();
+}
+
+function removeAllClick() {
+    basket.clear();
 }
 
