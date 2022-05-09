@@ -29,10 +29,13 @@ body {
 nav {
     position: fixed;
     top: 0;
-    width: 100%;
     z-index: 10;
-    height: var(--navbar-height);
     width: 100%;
+    height: var(--navbar-height);
+}
+
+nav .top-menu {
+    height: var(--navbar-height);
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
@@ -57,11 +60,11 @@ nav .basket-btn {
     justify-content: flex-end;
 }
 
-nav .basket-btn:hover {
+.basket-btn:hover {
     cursor: pointer;
 }
 
-nav .basket-count-badge {
+.basket-count-badge {
     background-color: var(--red-color);
     font-size: 0.8rem;
     color: var(--light-color);
@@ -70,6 +73,15 @@ nav .basket-count-badge {
     height: 1.4em;
     text-align: center;
     border-radius: 50%;
+}
+
+nav .basket {
+    background-color: blue;
+    width: 200px;
+    min-height: 300px;
+    position: absolute;
+    right: 0;
+    display: none;
 }
 
 header {

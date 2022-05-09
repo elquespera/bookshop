@@ -50,6 +50,34 @@ window.addEventListener("load", () => {
         .then(data => {
             bookData = data;
             parseBookData();
-        });
+        });      
 })
+
+// Backet
+
+class Basket {
+    _visible = false;
+    _basket = document.querySelector('.basket');
+    get visible () {
+        this._visible;
+    }
+    
+
+    toggleBasket = () => {
+        this._visible = !this._visible;
+        this._basket.style.display = this._visible ? 'block' : 'none';
+        console.log(this._visible);
+    }
+}
+
+let basket;
+
+window.addEventListener("load", () => {  
+    basket = new Basket(); 
+})
+
+
+function basketButtonClick() {
+    basket.toggleBasket();
+}
 
