@@ -12,9 +12,14 @@
 }
 
 /* Reset defaults */
+* {
+    box-sizing: border-box;
+}
+
 body {
     padding: 0;
     margin: 0;
+    box-sizing: border-box;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
@@ -26,7 +31,6 @@ nav {
     top: 0;
     width: 100%;
     z-index: 10;
-    /* background-color: var(--header-color); */
     height: var(--navbar-height);
     width: 100%;
     display: flex;
@@ -62,15 +66,16 @@ nav .basket-count-badge {
     font-size: 0.8rem;
     color: var(--light-color);
     padding: 0.2em;
-    width: 1.2em;
-    height: 1.2em;
+    width: 1.4em;
+    height: 1.4em;
     text-align: center;
     border-radius: 50%;
 }
 
 header {
     position: relative;
-    padding-top: 40px;
+    padding-top: var(--navbar-height);
+    box-sizing: content-box;
     height: var(--header-height);
     display: flex;
     flex-flow: column;
@@ -95,7 +100,6 @@ header h3, header h4 {
     border-radius: 50%;
 
 }
-
 
 .top {
     bottom: 5rem;
@@ -123,6 +127,60 @@ header h3, header h4 {
 
 .color3 {
     background-color: var(--circle-color3);
+}
+
+main {
+    width: 1200px;
+    padding: 50px;
+    margin: auto;
+}
+
+.book-wrapper {
+    display: grid;
+    gap: 50px;
+    grid-template-columns: 1fr 1fr;
+}
+
+.book-item {
+    display: flex;
+    gap: 20px;
+}
+
+.book-item img {
+    width: 200px;
+    grid-area: book-image;
+}
+
+.book-item .book-right-pane {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+}
+
+.book-info  {
+    grid-area: book-info;
+}
+
+.book-controls {
+    grid-area: book-controls;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    flex-flow: row nowrap;
+    gap: 20px;
+}
+
+
+@media only screen and (max-width: 1200px) {
+    main {
+        width: 100%;
+        margin: 0;
+    }
+    .book-wrapper {
+        display: grid;
+        gap: 30px;
+        grid-template-columns: 1fr;
+    }    
 }
 
 

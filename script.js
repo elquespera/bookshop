@@ -14,3 +14,42 @@ document.addEventListener("scroll", () => {
     color = color.match(/[\.\d]+/g);
     navbar.style.backgroundColor = `rgba(${color[0]}, ${color[1]}, ${color[2]}, ${opacity})`;
 });
+
+//Fetch book data
+let bookData;
+
+const parseBookData = () => {
+    const bookFragment = new DocumentFragment();
+    bookData.forEach(book => {
+        const bookItem = document.createElement('div');
+        bookItem.className = 'book-item';
+        bookItem.innerHTML = 
+                `<img src="./assets/images/${book.imageLink}">
+                <div class="book-right-pane">
+                    <div class="book-info">
+                        <h4 class="book-authors">${book.author}</h4>
+                        <h3 class="book-title">${book.title}</h3>
+                        <p class="book-price">Price: $${book.price}</p>
+                    </div>
+                    <div class="book-controls">
+                        <button type="button">Show more</button>
+                        <button type="button">Add to bag</button>
+                    </div>
+                </div>`;
+        bookFragment.appendChild(bookItem);
+    });
+    const bookWrapper = document.querySelector('.book-wrapper');
+    bookWrapper.appendChild(bookFragment);
+}
+
+window.addEventListener("load", () => {  
+    fetch('./assets/books.json')
+        .then(response => {
+            return response.json();
+        })
+        .then(data => {
+            bookData = data;
+            parseBookData();
+        });
+})
+
