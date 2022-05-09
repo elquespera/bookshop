@@ -1,0 +1,38 @@
+/* Variables */
+:root {
+
+}
+
+/* Reset defaults */
+body {
+    padding: 0;
+    margin: 0;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+
+/* Styles */
+
+
+header {
+    position: relative;
+    display: flex;
+    flex-flow: column;
+    overflow: hidden;
+    background-color: beige;
+}
+
+header > * {
+    z-index: 10;
+}
+
+.circle {
+    position: absolute;
+    z-index: 1;
+    left: 300px;
+    top: 60%;
+    border-radius: 100%;
+    background-color: rgb(228, 225, 252);
+    height: 100%;
+    width: 20%;
+}
