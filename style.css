@@ -4,6 +4,9 @@
     --header-color: beige;
     --header-margin: 10px;
     --header-height: 100px;
+    --circle-color1: rgb(228, 225, 252);
+    --circle-color2: rgb(252, 233, 225);
+    --circle-color3: rgb(252, 225, 238);    
 }
 
 /* Reset defaults */
@@ -21,7 +24,7 @@ nav {
     top: 0;
     width: 100%;
     z-index: 10;
-    background-color: var(--header-color);
+    /* background-color: var(--header-color); */
     height: var(--navbar-height);
     width: 100%;
     display: flex;
@@ -64,10 +67,39 @@ header h3, header h4 {
 .circle {
     position: absolute;
     z-index: 1;
-    left: 20%;
-    top: 60%;
-    border-radius: 100%;
-    background-color: rgb(228, 225, 252);
-    height: 100%;
-    width: 30%;
+    height: 33vw;
+    width: 33vw;
+    border-radius: 50%;
+
 }
+
+
+.top {
+    bottom: 5rem;
+}
+
+.bottom {
+    top: 5rem;
+}
+
+.center {
+    right: 30%;
+}
+
+.right {
+  right: 5rem;
+}
+
+.color1 {
+    background-color: var(--circle-color1);
+}
+
+.color2 {
+    background-color: var(--circle-color2);
+}
+
+.color3 {
+    background-color: var(--circle-color3);
+}
+
+
