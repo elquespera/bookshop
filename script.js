@@ -33,7 +33,8 @@ window.addEventListener("DOMContentLoaded", () => {
 
 function createBookItem(book, basket = false) {
     let bookControls;
-    let countBadge = ''
+    let countBadge = '';
+    let dragAndDrop = '';
     if (basket) {
         bookControls = '';
         if (book.count > 1) {
@@ -42,14 +43,15 @@ function createBookItem(book, basket = false) {
     } else {
         bookControls = 
             `<button type="button">Show more</button>
-            <button type="button" onclick="addToBasketClick(${book.id})">Add to bag</button>`
+            <button type="button" onclick="addToBasketClick(${book.id})">Add to bag</button>`;
+        dragAndDrop = `draggable="true" ondragstart="dragStart(event)" id="${book.id}"`;            
     }
     const bookItem = document.createElement('div');
     bookItem.className = 'book-item';
     bookItem.innerHTML = 
             `<div class="book-left-pane">
                 ${countBadge}
-                <img src="./assets/images/${book.imageLink}">
+                <img src="./assets/images/${book.imageLink}" alt="${book.title}" ${dragAndDrop}>
             </div>
             <div class="book-right-pane">
                 <div class="book-info">
@@ -166,3 +168,21 @@ function removeAllClick() {
     basket.clear();
 }
 
+
+// Drag & Drop
+
+function dragStart(event) {
+    // console.log(event.target.id);
+    event.dataTransfer.setData("id", event.target.id);
+    basket.show();
+}
+
+function dropAllow(event) {
+    event.preventDefault();
+}
+
+function dropOver(event) {
+    event.preventDefault();
+    const id = event.dataTransfer.getData("id");
+    basket.addItem(parseInt(id));
+}
