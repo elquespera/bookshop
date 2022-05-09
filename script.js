@@ -36,7 +36,7 @@ function createBookItem(book, basket = false) {
     let countBadge = '';
     let dragAndDrop = '';
     if (basket) {
-        bookControls = '';
+        bookControls = `<div class="btn trash-btn" onclick="removeItemFromBasketClick(${book.id})"></div>`;
         if (book.count > 1) {
             countBadge = `<div class='badge amount-badge'>x${book.count}</div>`;
         }
@@ -138,6 +138,14 @@ class Basket {
         this.renderBasket();
     }
 
+    removeItem = (id) => {
+        let ind = this._items.findIndex((item, i) => item.id === id);
+        if (ind !== -1) {
+            this._items.splice(ind, 1);
+            this.renderBasket();   
+        } 
+    }
+
     clear = () => {
         this._items = [];
         this.renderBasket();
@@ -152,7 +160,7 @@ window.addEventListener("load", () => {
 })
 
 window.addEventListener("click", () => {  
-    // if (basket.visible) {basket.toggle()}
+    //  if (basket.visible) {basket.toggle()}
 })
 
 function basketButtonClick() {
@@ -164,6 +172,10 @@ function addToBasketClick(id) {
     basket.show();
 }
 
+function removeItemFromBasketClick(id) {
+    basket.removeItem(id);
+}
+
 function removeAllClick() {
     basket.clear();
 }
@@ -172,7 +184,6 @@ function removeAllClick() {
 // Drag & Drop
 
 function dragStart(event) {
-    // console.log(event.target.id);
     event.dataTransfer.setData("id", event.target.id);
     basket.show();
 }

@@ -25,8 +25,7 @@ body {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-weight: 400;
+    font-family: 'Arial Narrow', Arial, sans-serif;
     font-size: 15px;
     line-height: 1.5em;
     background-color: var(--main-color);    
@@ -56,18 +55,25 @@ nav h1 {
     margin: var(--header-margin);
 }
 
-nav .basket-btn {
-    background-image: url('./assets/icons/basket-shopping.svg');
+.btn {
     background-position: center;
     background-repeat: no-repeat;
-    background-size: 35px;
-    width: 45px;
-    height: 45px;
-    margin: var(--header-margin);
+    background-size: 2rem;
+    width: 3rem;
+    height: 3rem;    
 }
 
-.basket-btn:hover {
+.btn:hover {
     cursor: pointer;
+}
+
+.trash-btn {
+    background-image: url('./assets/icons/circle-xmark.svg');
+}
+
+nav .basket-btn {
+    background-image: url('./assets/icons/basket-shopping.svg');
+    margin: var(--header-margin);
 }
 
 .badge {
@@ -198,6 +204,13 @@ main {
     margin: auto;
 }
 
+main h2 {
+    font-size: 3rem;
+    margin: 0;
+    margin-bottom: 1em;
+    font-weight: 400;
+}
+
 .book-wrapper {
     display: grid;
     gap: 50px;
@@ -210,11 +223,15 @@ main {
 }
 
 .book-item img {
-    width: 200px;
+    max-height: 240px;
+}
+
+.book-item h4 {
+    margin-top: 0;
 }
 
 .basket .book-item img {
-    max-height: 200px;
+    max-height: 120px;
     width: auto;
 }
 
@@ -227,6 +244,12 @@ main {
     flex-flow: column nowrap;
     justify-content: space-between;
 }
+
+.basket-content .book-right-pane {
+    width: 100%;
+    flex-flow: row nowrap;
+    align-items: flex-start;
+} 
 
 .book-controls {
     display: flex;
