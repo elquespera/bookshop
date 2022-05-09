@@ -3,8 +3,11 @@
     --navbar-height: 50px;
     --header-margin: 10px;
     --header-height: 100px;
+    --footer-height: 150px;
 
     --header-color: beige;
+    --main-color: rgb(235, 255, 254);
+    --footer-color: beige;
     --light-color: white;
     --shadow-color: rgba(29, 29, 29, 0.6);
     --red-color: red;
@@ -23,6 +26,10 @@ body {
     margin: 0;
     box-sizing: border-box;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 1.5em;
+    background-color: var(--main-color);    
 }
 
 
@@ -57,9 +64,6 @@ nav .basket-btn {
     width: 45px;
     height: 45px;
     margin: var(--header-margin);
-    /* display: flex;
-    align-items: flex-start;
-    justify-content: flex-end; */
 }
 
 .basket-btn:hover {
@@ -70,7 +74,8 @@ nav .basket-btn {
     position: absolute;
     top: 5px;
     background-color: var(--red-color);
-    font-size: 0.8rem;
+    line-height: 1;
+    font-size: 0.8em;
     color: var(--light-color);
     padding: 0.4em 0;
     width: 1.8em;
@@ -215,14 +220,12 @@ main {
 
 .book-item .book-left-pane {
     position: relative;
-    width: 40%;
 }
 
 .book-item .book-right-pane {
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-between;
-    width: 60%;
 }
 
 .book-controls {
@@ -231,6 +234,13 @@ main {
     justify-content: flex-start;
     flex-flow: row nowrap;
     gap: 20px;
+}
+
+footer {
+    height: var(--footer-height);
+    background-color: var(--footer-color);
+    position: relative;
+    overflow: hidden;
 }
 
 
