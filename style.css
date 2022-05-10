@@ -199,7 +199,12 @@ nav .basket {
     display: flex;
     flex-flow: row wrap;
     gap: 20px;
+    align-items: center;
     justify-content: flex-end;
+}
+
+.basket-controls h3 {
+    font-size: 1.5em;
 }
 
 /* Header */

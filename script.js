@@ -85,6 +85,7 @@ class Basket {
     _removeAllButton = document.querySelector('.remove-all-btn');
     _checkoutButton = document.querySelector('.checkout-btn');
     _badge = document.querySelector('.basket-count-badge');
+    _totalPrice = document.querySelector('.basket-total-price');
     _items = [];
 
     constructor () {
@@ -103,17 +104,23 @@ class Basket {
         return this.itemsCount === 0;
     }
 
+    get totalPrice () {
+        return this._items.reduce((total, item) => item.count ? total + item.count * item.price : total + item.price, 0);
+    }
+
     
     renderBasket = () => {
         const basketFragment = new DocumentFragment();
         if (this.basketEmpty) {
             const empty = document.createElement('p');
-            empty.textContent = 'Your shopping cart is empty. Please add items to get started.'
+            empty.textContent = 'Your shopping cart is empty. Please drag and drop items here or click Add to bag to get started.'
             basketFragment.appendChild(empty);
+            this._totalPrice.textContent = '';
         } else {
             this._items.forEach((item, id) => {
                 basketFragment.appendChild(createBookItem(item, true));
             });
+            this._totalPrice.textContent = 'Total: $' + this.totalPrice;
         }
         this._basket_content.textContent = '';
         this._basket_content.appendChild(basketFragment);
