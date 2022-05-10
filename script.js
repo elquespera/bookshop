@@ -82,8 +82,15 @@ class Basket {
     _visible = false;
     _basket = document.querySelector('.basket');
     _basket_content = document.querySelector('.basket-content');
+    _removeAllButton = document.querySelector('.remove-all-btn');
+    _checkoutButton = document.querySelector('.checkout-btn');
     _badge = document.querySelector('.basket-count-badge');
     _items = [];
+
+    constructor () {
+        this.renderBasket();
+    }
+
     get visible () {
         return this._visible;
     }
@@ -100,7 +107,9 @@ class Basket {
     renderBasket = () => {
         const basketFragment = new DocumentFragment();
         if (this.basketEmpty) {
-            
+            const empty = document.createElement('p');
+            empty.textContent = 'Your shopping cart is empty. Please add items to get started.'
+            basketFragment.appendChild(empty);
         } else {
             this._items.forEach((item, id) => {
                 basketFragment.appendChild(createBookItem(item, true));
@@ -108,9 +117,10 @@ class Basket {
         }
         this._basket_content.textContent = '';
         this._basket_content.appendChild(basketFragment);
-
         this._badge.innerHTML = this.itemsCount;
         this._badge.style.display = this.basketEmpty ? 'none' : 'block';
+        this._removeAllButton.disabled = this.basketEmpty;
+        this._checkoutButton.disabled = this.basketEmpty;
     }
 
     toggle = () => {
