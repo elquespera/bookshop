@@ -1,8 +1,8 @@
 /* Variables */
 :root {
-    --navbar-height: 50px;
+    --navbar-height: 70px;
     --header-margin: 10px;
-    --header-height: 100px;
+    --header-height: 140px;
     --footer-height: 150px;
 
     --dark-sea-green: #79b791ff;
@@ -28,21 +28,6 @@
     --circle-color1: #cdb4dbff;
     --circle-color2: #a2d2ffff;
     --circle-color3: #ffafccff;    
-
-
-
-
-/*    --header-color: beige;
-    --main-color: rgb(235, 255, 254);
-    --footer-color: beige;
-    --light-color: white;
-    --shadow-color: rgba(29, 29, 29, 0.6);
-    --button-color: steelblue;
-    --button-hover-color: blue;
-    --red-color: red;
-    --circle-color1: rgb(228, 225, 252);
-    --circle-color2: rgb(252, 233, 225);
-    --circle-color3: rgb(252, 225, 238);    */
 }
 
 /* Reset defaults */
@@ -85,8 +70,10 @@ nav .top-menu {
 }
 
 nav h1 {
+    font-size: 3em;
     text-transform: uppercase;
     margin: var(--header-margin);
+    letter-spacing: 0.2em;
 }
 
 button {
@@ -236,8 +223,16 @@ header > * {
     z-index: 3;
 }
 
-header h3, header h4 {
+header h2, header h4 {
     margin: var(--header-margin);
+}
+
+header h2 {
+    font-size: 2.5em;
+}
+
+header h4 {
+    font-size: 1.5em;
 }
 
 /* Decorative circles for background */
