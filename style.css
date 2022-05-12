@@ -365,6 +365,17 @@ main h2 {
     align-items: flex-end;
 }
 
+/* Checkout */
+.checkout {
+    display: none;
+}
+
+/* Summary */
+.summary {
+    display: none;
+}
+
+
 /* Footer */
 
 footer {

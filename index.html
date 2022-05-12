@@ -12,7 +12,7 @@
     <nav>
         <div class="top-menu">
             <h1>Bookshop</h1>
-            <div class="btn basket-btn" onclick="basketButtonClick()">
+            <div class="btn basket-btn" onclick="basket.toggle()">
                 <div class="badge basket-count-badge">9</div>
             </div>
         </div>
@@ -20,9 +20,9 @@
             <h2>Shopping cart</h2>
             <div class="basket-content"></div>
             <div class="basket-controls">
-                <h3 class="basket-total-price"></h3>
-                <button type="button" class='remove-all-btn btn-red' onclick="removeAllClick()">Remove all</button>
-                <button type="button" class='checkout-btn'>Checkout</button>
+                <h3 class="basket-total-price">Price: </h3>
+                <button type="button" class='remove-all-btn btn-red' onclick="basket.clear()">Remove all</button>
+                <button type="button" class='checkout-btn' onclick="checkout.navigate('checkout')">Checkout</button>
             </div>
         </div>
     </nav>
@@ -37,11 +37,19 @@
     <!-- Main section start -->
     <main>
         <div class="catalog">
-            <h2 class=".title-text">Book Catalog</h2> 
+            <h2 class=".title-text">Catalog</h2> 
             <div class="book-wrapper">
             </div>
         </div>
-        
+        <div class="checkout">
+            <h2 class=".title-text">Checkout</h2> 
+            <form>
+                <input value="Try">
+            </form>
+        </div>
+        <div class="summary">
+            <h2 class=".title-text">Summary</h2> 
+        </div>
     </main>
     <!-- Main section end -->
 

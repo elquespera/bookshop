@@ -17,11 +17,13 @@ document.addEventListener("scroll", () => {
 
 
 let moreInfo;
+let basket;
+let checkout;
 
 //Fetch book data
 let bookData;
 
-window.addEventListener("DOMContentLoaded", () => {  
+window.addEventListener("load", () => {  
     fetch('./assets/books.json')
         .then(response => {
             return response.json();
@@ -39,7 +41,7 @@ function createBookItem(book, basket = false) {
     let countBadge = '';
     let dragAndDrop = '';
     if (basket) {
-        bookControls = `<div class="btn trash-btn" onclick="removeItemFromBasketClick(${book.id})"></div>`;
+        bookControls = `<div class="btn trash-btn" onclick="basket.removeItem(${book.id})"></div>`;
         if (book.count > 1) {
             countBadge = `<div class='badge amount-badge'>x${book.count}</div>`;
         }
@@ -50,7 +52,7 @@ function createBookItem(book, basket = false) {
                 <p>${book.description}</p>
                 <button type="button" class="more-info-close-btn btn-red" onclick="moreInfo.hideAll()">Close</button>
             </div>
-            <button type="button" class='add-to-bag-btn' onclick="addToBasketClick(${book.id})">Add to bag</button>`;
+            <button type="button" class='add-to-bag-btn' onclick="basket.addItem(${book.id}); basket.show();">Add to bag</button>`;
 
         dragAndDrop = `draggable="true" ondragstart="dragStart(event, ${book.id})"`;       
     }
@@ -81,7 +83,9 @@ function parseBookData () {
     });
     const bookWrapper = document.querySelector('.book-wrapper');
     bookWrapper.appendChild(bookFragment);
-    moreInfo = new MoreInfo();    
+    moreInfo = new MoreInfo();
+    basket = new Basket(); 
+    checkout = new Checkout();
 }
 
 // More book info class
@@ -195,15 +199,19 @@ class Basket {
 }
 
 
-let basket;
+// More book info class
+class Checkout {
+    _pages = ['catalog', 'checkout', 'summary'];
+    _pdivs = this._pages.map(p => document.querySelector('.'+p));
 
+    navigate = (page) => {
+        let index = this._pages.indexOf(page);
+        this._pdivs.forEach((p, i) => i === index ? p.style.display = 'block' : p.style.display = 'none');
+    }
 
-window.addEventListener("load", () => {  
-    basket = new Basket(); 
-});
+}
 
-
-//Hide Basket on click outside it
+//Hide modals on click outside it
 window.addEventListener("click", event => {  
     if (!['.basket', '.basket-btn', '.add-to-bag-btn'].
         some(c => event.target.closest(c))) {
@@ -217,27 +225,11 @@ window.addEventListener("click", event => {
 
 //Hide modals on ESC key press
 window.addEventListener("keydown", event => {
-    if (event.key == 'Escape')
+    if (event.key == 'Escape') {
         basket.hide();
+        moreInfo.hideAll()
+    }
 });
-
-function basketButtonClick() {
-    basket.toggle();
-}
-
-function addToBasketClick(id) {
-    basket.addItem(id);
-    basket.show();
-}
-
-function removeItemFromBasketClick(id) {
-    basket.removeItem(id);
-}
-
-function removeAllClick() {
-    basket.clear();
-}
-
 
 // Drag & Drop
 
@@ -255,6 +247,3 @@ function dropOver(event) {
     const id = event.dataTransfer.getData("id");
     basket.addItem(parseInt(id));
 }
-
-// More Info Modal
-
