@@ -4,26 +4,16 @@
     --header-margin: 10px;
     --header-height: 140px;
     --footer-height: 150px;
-
-    --dark-sea-green: #79b791ff;
-    --turquoise-green: #abd1b5ff;
-    --mint-cream: #edf4edff;
-    --caput-mortuum: #51291eff;
-    --dark-sienna: #301014ff; 
-
-    --pink-lavender: #cdb4dbff;
-    --orchid-pink: #ffc8ddff;
-    --nadeshiko-pink: #ffafccff;
-    --uranian-blue: #bde0feff;
-    --baby-blue-eyes: #a2d2ffff;    
+    --modal-animation: modalAnimate 0.4s ease-in-out;   
 
     --header-color: #bde0feff;
     --main-color: rgb(223, 240, 255);
     --footer-color: var(--header-color);
     --light-color: white;
     --shadow-color: rgba(29, 29, 29, 0.4);
+    --shadow: 0 0 60px 0px var(--shadow-color);
+    --shadow-btn: 0 0 30px 0px var(--shadow-color);
     --button-color: rgb(47, 155, 255); 
-    --button-hover-color: var(--button-color);
     --red-color: red;
     --circle-color1: #cdb4dbff;
     --circle-color2: #a2d2ffff;
@@ -90,8 +80,7 @@ button {
 }
 
 button:hover {
-    background-color: var(--button-hover-color);
-    box-shadow: 0 0 30px 0px var(--shadow-color);
+    box-shadow: var(--shadow-btn);
     cursor: pointer;
     margin: 0 0 3px 0;
 }
@@ -112,6 +101,10 @@ button:disabled {
     opacity: 0.7;
 }
 
+.btn-red {
+    background-color: var(--red-color);
+}
+
 .btn:hover {
     cursor: pointer;
     opacity: 1;
@@ -125,6 +118,7 @@ nav .basket-btn {
     background-image: url('./assets/icons/basket-shopping.svg');
     margin: var(--header-margin);
 }
+
 
 .badge {
     filter: none;
@@ -156,7 +150,7 @@ nav .basket-btn {
 
 /* Basket */
 
-@keyframes basketAnimate {
+@keyframes modalAnimate {
     from {opacity: 0}
     to {opacity: 1}
   }
@@ -170,12 +164,10 @@ nav .basket {
     max-height: 90vh;
     background-color: var(--light-color);
     padding: 40px;
-    box-shadow: 0 0 50px 0px var(--shadow-color);
+    box-shadow: var(--shadow);
     display: none;
     flex-flow: column nowrap;
-    animation-name: basketAnimate;
-    animation-timing-function: ease-in-out;
-    animation-duration: 0.4s;  
+    animation: var(--modal-animation);
 }
 
 .basket > h2 {
@@ -359,6 +351,18 @@ main h2 {
     justify-content: flex-start;
     flex-flow: row wrap;
     gap: 20px;
+}
+
+.book-more-info {
+    display: none;
+    position: absolute;
+    background-color: var(--light-color);
+    box-shadow: var(--shadow);
+    animation: var(--modal-animation);
+    max-width: 300px;
+    padding: 1.5em;
+    flex-flow: column nowrap;
+    align-items: flex-end;
 }
 
 /* Footer */

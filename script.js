@@ -15,6 +15,9 @@ document.addEventListener("scroll", () => {
     navbar.style.backgroundColor = `rgba(${color[0]}, ${color[1]}, ${color[2]}, ${opacity})`;
 });
 
+
+let moreInfo;
+
 //Fetch book data
 let bookData;
 
@@ -42,18 +45,23 @@ function createBookItem(book, basket = false) {
         }
     } else {
         bookControls = 
-            `<button type="button">Show more</button>
+            `<button type="button" class="show-more-btn" onclick="moreInfo.show(${book.id})">Show more</button>
+            <div class="book-more-info">
+                <p>${book.description}</p>
+                <button type="button" class="more-info-close-btn btn-red" onclick="moreInfo.hideAll()">Close</button>
+            </div>
             <button type="button" class='add-to-bag-btn' onclick="addToBasketClick(${book.id})">Add to bag</button>`;
-        dragAndDrop = `draggable="true" ondragstart="dragStart(event)" id="${book.id}"`;            
+
+        dragAndDrop = `draggable="true" ondragstart="dragStart(event, ${book.id})"`;       
     }
     const bookItem = document.createElement('div');
     bookItem.className = 'book-item';
     bookItem.innerHTML = 
-            `<div class="book-left-pane">
+            `<div class="book-left-pane" ${dragAndDrop}>
                 ${countBadge}
-                <img src="./assets/images/${book.imageLink}" alt="${book.title}" ${dragAndDrop}>
+                <img src="./assets/images/${book.imageLink}" alt="${book.title}">
             </div>
-            <div class="book-right-pane">
+            <div class="book-right-pane"  ${dragAndDrop}>
                 <div class="book-info">
                     <h4 class="book-authors">${book.author}</h4>
                     <h3 class="book-title">${book.title}</h3>
@@ -73,8 +81,24 @@ function parseBookData () {
     });
     const bookWrapper = document.querySelector('.book-wrapper');
     bookWrapper.appendChild(bookFragment);
+    moreInfo = new MoreInfo();    
 }
 
+// More book info class
+class MoreInfo {
+    _infoCards = document.querySelectorAll('.book-more-info');
+
+    show = (id) => {
+        this.hideAll();
+        this._infoCards[id].style.display = 'flex';
+    }
+    hide = (id) => {
+        this._infoCards[id].style.display = 'none';
+    }
+    hideAll = () => {
+        this._infoCards.forEach((_, i) => this.hide(i));
+    }
+}
 
 // Basket
 
@@ -170,7 +194,9 @@ class Basket {
     }
 }
 
+
 let basket;
+
 
 window.addEventListener("load", () => {  
     basket = new Basket(); 
@@ -183,6 +209,10 @@ window.addEventListener("click", event => {
         some(c => event.target.closest(c))) {
         basket.hide();
     }
+    if (!['.show-more-btn', '.book-more-info'].
+        some(c => event.target.closest(c))) {
+        moreInfo.hideAll();
+    }    
 });
 
 //Hide modals on ESC key press
@@ -211,8 +241,8 @@ function removeAllClick() {
 
 // Drag & Drop
 
-function dragStart(event) {
-    event.dataTransfer.setData("id", event.target.id);
+function dragStart(event, id) {
+    event.dataTransfer.setData("id", id);
     basket.show();
 }
 
@@ -225,3 +255,6 @@ function dropOver(event) {
     const id = event.dataTransfer.getData("id");
     basket.addItem(parseInt(id));
 }
+
+// More Info Modal
+
