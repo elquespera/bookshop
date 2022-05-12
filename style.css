@@ -60,6 +60,11 @@ body {
     background-color: var(--main-color);    
 }
 
+h1, h2, h3, h4, p {
+    line-height: 1.2em;
+    font-weight: 400;
+}
+
 
 /* Styles */
 
@@ -173,8 +178,8 @@ nav .basket {
     position: absolute;
     right: 0;
     margin-right: 20px;
-    min-width: 560px;
-    max-width: 700px;
+    min-width: 460px;
+    max-width: 500px;
     max-height: 90vh;
     background-color: var(--light-color);
     padding: 40px;
@@ -183,7 +188,13 @@ nav .basket {
     flex-flow: column nowrap;
     animation-name: basketAnimate;
     animation-timing-function: ease-in-out;
-    animation-duration: 0.4s;    
+    animation-duration: 0.4s;  
+}
+
+.basket > h2 {
+    text-transform: uppercase;
+    font-size: 1.8em;
+    letter-spacing: 0.1em;
 }
 
 .basket-content {
@@ -193,6 +204,7 @@ nav .basket {
     gap: 60px;    
     overflow-y: auto;
 }
+
 
 .basket-controls {
     margin-top: 20px;
@@ -204,7 +216,7 @@ nav .basket {
 }
 
 .basket-controls h3 {
-    font-size: 1.5em;
+    font-size: 1.2em;
 }
 
 /* Header */
@@ -277,21 +289,23 @@ main {
 main h2 {
     font-size: 3rem;
     margin: 0;
-    margin-bottom: 1em;
+    margin-bottom: 2em;
     font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
 }
 
 /* Book Item for Catalog and Basket */
 
 .book-wrapper {
     display: grid;
-    gap: 50px;
+    gap: 5em;
     grid-template-columns: 1fr 1fr;
 }
 
 .book-item {
     display: flex;
-    gap: 20px;
+    gap: 2em;
 }
 
 .book-item img {
@@ -304,7 +318,7 @@ main h2 {
 
 .basket .book-item img {
     max-height: 120px;
-    width: auto;
+    /* width: auto; */
 }
 
 .book-item .book-left-pane {
@@ -315,13 +329,34 @@ main h2 {
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-between;
+    padding-bottom: 0.5em;
 }
 
 .basket-content .book-right-pane {
     width: 100%;
     flex-flow: row nowrap;
     align-items: flex-start;
-} 
+}
+
+.book-info h3 {
+    font-size: 1.5em;
+    margin: 0;    
+    margin-bottom: 1em;    
+}
+
+.book-info h4 {
+    font-size: 1.2em;
+    margin: 0;
+    margin-bottom: 0.5em;
+}
+
+.basket-content .book-info h3 {
+    font-size: 1.2em;
+}
+
+.basket-content .book-info h4 {
+    font-size: 1em;
+}
 
 .book-controls {
     display: flex;

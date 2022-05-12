@@ -43,7 +43,7 @@ function createBookItem(book, basket = false) {
     } else {
         bookControls = 
             `<button type="button">Show more</button>
-            <button type="button" onclick="addToBasketClick(${book.id})">Add to bag</button>`;
+            <button type="button" class='add-to-bag-btn' onclick="addToBasketClick(${book.id})">Add to bag</button>`;
         dragAndDrop = `draggable="true" ondragstart="dragStart(event)" id="${book.id}"`;            
     }
     const bookItem = document.createElement('div');
@@ -174,11 +174,22 @@ let basket;
 
 window.addEventListener("load", () => {  
     basket = new Basket(); 
-})
+});
 
-window.addEventListener("click", () => {  
-    //  if (basket.visible) {basket.toggle()}
-})
+
+//Hide Basket on click outside it
+window.addEventListener("click", event => {  
+    if (!['.basket', '.basket-btn', '.add-to-bag-btn'].
+        some(c => event.target.closest(c))) {
+        basket.hide();
+    }
+});
+
+//Hide modals on ESC key press
+window.addEventListener("keydown", event => {
+    if (event.key == 'Escape')
+        basket.hide();
+});
 
 function basketButtonClick() {
     basket.toggle();
