@@ -81,7 +81,7 @@ const main = {
                     ]},
                     {tag: 'label', content: 'Payment type'},
                     {children: [
-                        {children: [
+                        {class:'option-group', children: [
                             {tag: 'input', type: 'radio', name: 'user-payment-type', id: 'user-payment-card'},
                             {tag: 'label', for: 'user-payment-card', content: 'Credit card'},
                             {tag: 'input', type: 'radio', name: 'user-payment-type', id: 'user-payment-cash'},
@@ -92,7 +92,7 @@ const main = {
                     ]},
                     {tag: 'label', content: 'Choose your gifts'},
                     {children: [
-                        {children: [
+                        {class:'option-group', children: [
                             {tag: 'input', type: 'checkbox', id: 'user-gift-wrapping', name: 'user-gift-wrapping'},
                             {tag: 'label', for: 'user-gift-wrapping', content: 'Gift wrapping'},
                             {tag: 'input', type: 'checkbox', id: 'user-gift-postcard'},
@@ -105,10 +105,8 @@ const main = {
                         {class: 'input-hint', id: 'input-hint-gift', 
                         content: 'Choose up to two gifts.'},    
                     ]},
-
-                    {tag: 'button', type: 'button', content: 'Submit'},
-
-                ]}
+                ]},
+                {tag: 'button', type: 'button', content: 'Submit'},                
             ]}
         ]},
         {class: 'summary', children: [
