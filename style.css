@@ -376,6 +376,22 @@ main h2 {
     display: none;
 }
 
+.checkout form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 1em;
+    row-gap: 2em;
+}
+
+.checkout form label {
+    text-align: right;
+}
+
+.checkout form .input-hint {
+    position: absolute;
+    /* display: none; */
+}
+
 /* Summary */
 .summary {
     display: none;

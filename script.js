@@ -2,19 +2,19 @@
 const nav = {
     tag: 'nav',
     children: [
-        {className: 'top-menu', children: [
-            {tag: 'h1', onclick: `checkout.navigate('catalog');`, innerHTML: 'Book shop'},
-            {className: 'btn basket-btn', onclick: 'basket.toggle()', children: [
-                {className: 'badge basket-count-badge'}
+        {class: 'top-menu', children: [
+            {tag: 'h1', onclick: `checkout.navigate('catalog');`, content: 'Book shop'},
+            {class: 'btn basket-btn', onclick: 'basket.toggle()', children: [
+                {class: 'badge basket-count-badge'}
             ]}
         ]},
-        {className: 'basket', ondragover: 'dropAllow(event)', ondrop: 'dropOver(event)', children: [
-            {tag: 'h2', innerHTML: 'Shopping cart'},
-            {className: 'basket-content'},
-            {className: 'basket-controls', children: [
-                {tag: 'h3', className: 'basket-total-price', innerHTML: 'Price: '},
-                {tag: 'button', type: 'button', className: 'remove-all-btn btn-red', onclick: 'basket.clear()', innerHTML: 'Remove all'},
-                {tag: 'button', type: 'button', className: 'checkout-basket-btn', onclick: `checkout.navigate('checkout')`, innerHTML: 'Checkout'}
+        {class: 'basket', ondragover: 'dropAllow(event)', ondrop: 'dropOver(event)', children: [
+            {tag: 'h2', content: 'Shopping cart'},
+            {class: 'basket-content'},
+            {class: 'basket-controls', children: [
+                {tag: 'h3', class: 'basket-total-price', content: 'Price: '},
+                {tag: 'button', type: 'button', class: 'remove-all-btn btn-red', onclick: 'basket.clear()', content: 'Remove all'},
+                {tag: 'button', type: 'button', class: 'checkout-basket-btn', onclick: `checkout.navigate('checkout'); basket.hide();`, content: 'Checkout'}
             ]},
 
         ]}
@@ -24,28 +24,96 @@ const nav = {
 const header = {
     tag: 'header',
     children: [
-        {className: 'circle color1 left top'},
-        {className: 'circle color2 center bottom'},
-        {className: 'circle color3 right top'},
-        {tag: 'h2', innerHTML: 'Welcome to our bookshop'},
-        {tag: 'h4', innerHTML: 'You came to the right place for book shopping'},
+        {class: 'circle color1 left top'},
+        {class: 'circle color2 center bottom'},
+        {class: 'circle color3 right top'},
+        {tag: 'h2', content: 'Welcome to our bookshop'},
+        {tag: 'h4', content: 'You came to the right place for book shopping'},
     ]
 }
     
 const main = {
     tag: 'main',
     children: [
-        {className: 'catalog', children: [
-            {tag: 'h2', className:'title-text', innerHTML: 'Catalog'},
-            {className: 'book-wrapper'}
+        {class: 'catalog', children: [
+            {tag: 'h2', class:'title-text', content: 'Catalog'},
+            {class: 'book-wrapper'}
         ]},
-        {className: 'checkout', children: [
-            {tag: 'h2', className:'title-text', innerHTML: 'Checkout'},
-            {className: 'checkout-wrapper'}
+        {class: 'checkout', children: [
+            {tag: 'h2', class:'title-text', content: 'Checkout'},
+            {class: 'checkout-wrapper', children: [
+                {tag: 'form', children: [
+                    {tag: 'label', for: 'user-name', content: 'Name'},
+                    {children: [
+                        {tag: 'input', type: 'text', id: 'user-name'},
+                        {class: 'input-hint', id: 'input-hint-name', 
+                        content: 'Name should be at least four characters long.'},    
+                    ]},
+                    {tag: 'label', for: 'user-surname', content: 'Surname'},
+                    {children: [
+                        {tag: 'input', type: 'text', id: 'user-surname'},
+                        {class: 'input-hint', id: 'input-hint-surname', 
+                        content: 'Name should be at least five characters long.'},    
+                    ]},
+                    {tag: 'label', for: 'user-delivery-date', content: 'Delivery date'},
+                    {children: [
+                        {tag: 'input', type: 'date', id: 'user-delivery-date'},
+                        {class: 'input-hint', id: 'input-hint-delivery-date', 
+                        content: 'Date should be tomorrow at the earliest.'},    
+                    ]},
+                    {tag: 'label', for: 'user-street', content: 'Street'},
+                    {children: [
+                        {tag: 'input', type: 'text', id: 'user-street'},
+                        {class: 'input-hint', id: 'input-hint-street', 
+                        content: 'Street should be at least five characters long.'},    
+                    ]},
+                    {tag: 'label', for: 'user-house-number', content: 'House number'},
+                    {children: [
+                        {tag: 'input', type: 'number', id: 'user-house-number'},
+                        {class: 'input-hint', id: 'input-hint-house-number', 
+                        content: 'Numbers only.'},    
+                    ]},
+                    {tag: 'label', for: 'user-flat-number', content: 'Flat number'},
+                    {children: [
+                        {tag: 'input', type: 'number', id: 'user-flat-number'},
+                        {class: 'input-hint', id: 'input-hint-flat-number', 
+                        content: 'Numbers or dashes only.'},    
+                    ]},
+                    {tag: 'label', content: 'Payment type'},
+                    {children: [
+                        {children: [
+                            {tag: 'input', type: 'radio', name: 'user-payment-type', id: 'user-payment-card'},
+                            {tag: 'label', for: 'user-payment-card', content: 'Credit card'},
+                            {tag: 'input', type: 'radio', name: 'user-payment-type', id: 'user-payment-cash'},
+                            {tag: 'label', for: 'user-payment-cash', content: 'Cash'},
+                        ]},
+                        {class: 'input-hint', id: 'input-hint-payment-type', 
+                        content: 'Select payment type please.'},    
+                    ]},
+                    {tag: 'label', content: 'Choose your gifts'},
+                    {children: [
+                        {children: [
+                            {tag: 'input', type: 'checkbox', id: 'user-gift-wrapping', name: 'user-gift-wrapping'},
+                            {tag: 'label', for: 'user-gift-wrapping', content: 'Gift wrapping'},
+                            {tag: 'input', type: 'checkbox', id: 'user-gift-postcard'},
+                            {tag: 'label', for: 'user-gift-postcard', content: 'Postcard'},
+                            {tag: 'input', type: 'checkbox', id: 'user-gift-discount'},
+                            {tag: 'label', for: 'user-gift-discount', content: '2% discount for your next order'},
+                            {tag: 'input', type: 'checkbox', id: 'user-gift-pen'},
+                            {tag: 'label', for: 'user-gift-pen', content: 'Branded pen or pencil'},                   
+                        ]},
+                        {class: 'input-hint', id: 'input-hint-gift', 
+                        content: 'Choose up to two gifts.'},    
+                    ]},
+
+                    {tag: 'button', type: 'button', content: 'Submit'},
+
+                ]}
+            ]}
         ]},
-        {className: 'summary', children: [
-            {tag: 'h2', className:'title-text', innerHTML: 'Summary'},
-            {className: 'sumarry-wrapper'}
+        {class: 'summary', children: [
+            {tag: 'h2', class:'title-text', content: 'Summary'},
+            {class: 'sumarry-wrapper'}
         ]},        
     ]
 }
@@ -53,9 +121,9 @@ const main = {
 const footer = {
     tag: 'footer',
     children: [
-        {className: 'circle color2 left top'},
-        {className: 'circle color3 center bottom'},
-        {className: 'circle color1 right top'},
+        {class: 'circle color2 left top'},
+        {class: 'circle color3 center bottom'},
+        {class: 'circle color1 right top'},
     ]
 }
 
@@ -72,8 +140,11 @@ function renderElement(el) {
         else if (prop.slice(0, 2) === 'on') {
             item.addEventListener(prop.slice(2), event => eval(el[prop]));
         }
+        else if (prop === 'content') {
+            item.innerHTML = el[prop];
+        }
         else if (prop !== 'tag') {
-            item[prop] = el[prop]
+            item.setAttribute(prop, el[prop]);
         }
     }
     return item;
@@ -239,7 +310,7 @@ function initPage () {
 
     //Book Data
     const bookWrapper = docFragment.querySelector('.book-wrapper');
-    bookData.forEach((book) => {
+    bookData.forEach(book => {
         bookWrapper.appendChild(createBookItem(book));
     });
 
@@ -253,40 +324,40 @@ function initPage () {
 //Create book info div for both main page & basket
 function createBookItem(book, basket = false) {
     const bookItem = {
-        className: 'book-item',
+        class: 'book-item',
         children: [
-            {className: 'book-left-pane', children: [
+            {class: 'book-left-pane', children: [
                 {tag: 'img', src: `./assets/images/${book.imageLink}`, alt: book.title}
             ]},
-            {className: 'book-right-pane', children: [
-                {className: 'book-info', children: [
-                    {tag: 'h4', innerHTML: book.author},
-                    {tag: 'h3', innerHTML: book.title},
-                    {tag: 'p', className: 'book-price', innerHTML: 'Price: '+book.author}
+            {class: 'book-right-pane', children: [
+                {class: 'book-info', children: [
+                    {tag: 'h4', content: book.author},
+                    {tag: 'h3', content: book.title},
+                    {tag: 'p', class: 'book-price', content: 'Price: '+book.author}
                 ]},
-                {className: 'book-controls'} 
+                {class: 'book-controls'} 
             ]},
         ]
     }
     if (basket) {
         bookItem.children[1].children[1].children = [
-            {className: 'btn trash-btn', onclick: `basket.removeItem(${book.id})`}
+            {class: 'btn trash-btn', onclick: `basket.removeItem(${book.id})`}
         ];
         if (book.count > 1) {
             bookItem.children[1].children.unshift({
-                className: 'badge amount-badge', innerHTML: 'x' + book.count
+                class: 'badge amount-badge', content: 'x' + book.count
         })}
     } else {
         bookItem.children[1].children[1].children = [
-            {tag: 'button', type: 'button', className: 'show-more-btn',
-             onclick: `moreInfo.show(${book.id})`, innerHTML: 'Show more'},
-            {className: 'book-more-info', children: [
-                {tag: 'p', innerHTML: book.description},
-                {tag: 'button', type: 'button', className: 'more-info-close-btn btn-red',
-                 onclick: 'moreInfo.hideAll()', innerHTML: 'Close'}
+            {tag: 'button', type: 'button', class: 'show-more-btn',
+             onclick: `moreInfo.show(${book.id})`, content: 'Show more'},
+            {class: 'book-more-info', children: [
+                {tag: 'p', content: book.description},
+                {tag: 'button', type: 'button', class: 'more-info-close-btn btn-red',
+                 onclick: 'moreInfo.hideAll()', content: 'Close'}
             ]},
-            {tag: 'button', type: 'button', className: 'add-to-bag-btn',
-             onclick: `basket.addItem(${book.id}); basket.show();`, innerHTML: 'Add to bag'}
+            {tag: 'button', type: 'button', class: 'add-to-bag-btn',
+             onclick: `basket.addItem(${book.id}); basket.show();`, content: 'Add to bag'}
         ];
         bookItem.children[0].draggable = 'true';
         bookItem.children[0].ondragstart = `dragStart(event, ${book.id})`;
