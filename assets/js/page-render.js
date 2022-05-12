@@ -1,3 +1,13 @@
+import { Basket } from "./basket.js";
+import { Checkout } from "./checkout.js";
+import { MoreInfo } from "./more-info.js";
+import { pageStructure } from "./page-data.js";
+
+let moreInfo;
+let basket;
+let checkout;
+let bookData;
+
 //jQuery-like selector
 const $ = (selector, from) => from ? from.querySelector(selector) : document.querySelector(selector);
 
@@ -67,4 +77,74 @@ function renderBookItem(book, basket = false) {
     return renderElement(bookItem);  
 }
 
-export { $, renderElement, renderBookItem }
+//Build all HTML Elements and initialize classes
+function initPage () {    
+    const docFragment = new DocumentFragment();
+    //Overall HTML structure
+    pageStructure.forEach(el => docFragment.appendChild(renderElement(el)));
+
+    //Book Data
+    const bookWrapper = $('.book-wrapper', docFragment);
+    bookData.forEach(book => {
+        bookWrapper.appendChild(renderBookItem(book));
+    });
+
+    $('body').appendChild(docFragment);   
+
+    moreInfo = new MoreInfo();
+    basket = new Basket(); 
+    checkout = new Checkout();
+}
+
+//Fetch book data and initialize the page
+window.addEventListener("load", () => {  
+    fetch('./assets/books.json')
+        .then(response => {
+            return response.json();
+        })
+        .then(data => {
+            bookData = data.map((x, id) => {return {...x, id: id}});
+            initPage();
+        });      
+});
+
+
+// Drag & Drop
+
+function dragStart(event, id) {
+    event.dataTransfer.setData("id", id);
+    basket.show();
+}
+
+function dropAllow(event) {
+    event.preventDefault();
+}
+
+function dropOver(event) {
+    event.preventDefault();
+    const id = event.dataTransfer.getData("id");
+    basket.addItem(parseInt(id));
+}
+
+
+//Hide modals on click outside it
+window.addEventListener("click", event => {  
+    if (!['.basket', '.basket-btn', '.add-to-bag-btn', '.trash-btn'].
+        some(c => event.target.closest(c))) {
+        basket.hide();
+    }
+    if (!['.show-more-btn', '.book-more-info'].
+        some(c => event.target.closest(c))) {
+        moreInfo.hideAll();
+    }    
+});
+
+//Hide modals on ESC key press
+window.addEventListener("keydown", event => {
+    if (event.key == 'Escape') {
+        basket.hide();
+        moreInfo.hideAll()
+    }
+});
+
+export { $, renderBookItem, bookData }

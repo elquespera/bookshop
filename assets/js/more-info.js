@@ -1,5 +1,3 @@
-import { $ } from "./page-render.js";
-
 // More book info class
 export class MoreInfo {
     _infoCards = document.querySelectorAll('.book-more-info');

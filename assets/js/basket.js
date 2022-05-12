@@ -1,4 +1,5 @@
 import { $, renderBookItem } from "./page-render.js";
+import { bookData } from "./page-render.js";
 
 // Basket
 export class Basket {

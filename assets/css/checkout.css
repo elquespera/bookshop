@@ -1,0 +1,67 @@
+/* Checkout */
+.checkout {
+    display: none;
+}
+
+.checkout-wrapper {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2em;
+    margin: auto;
+    max-width: 800px;
+}
+
+.checkout form {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2em;
+}
+
+.checkout .form-inputs {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 2em 1em;
+    align-items: center;
+    width: auto;
+}
+
+
+.form-inputs > label {
+    font-size: 1.2em;
+    text-align: right;
+}
+
+.form-inputs > input {
+    font-size: 1em;
+}
+
+.form-inputs input[type=text], .form-inputs input[type=number],
+.form-inputs input[type=date] {
+    width: 20rem;
+    padding: 0.4em 0.8em;
+}
+
+.form-inputs .input-hint {
+    position: absolute;
+    display: none;
+}
+
+.form-inputs .option-group {
+    display: grid;
+    grid-template-columns: 1.6em 1fr;
+    align-items: baseline;
+    justify-items: stretch;
+}
+
+.form-inputs .option-group label {
+    font-size: 1em;
+}
+
+/* Summary */
+.summary {
+    display: none;
+}

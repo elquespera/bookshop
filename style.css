@@ -371,69 +371,6 @@ main h2 {
     align-items: flex-end;
 }
 
-/* Checkout */
-.checkout {
-    display: none;
-}
-
-.checkout-wrapper {
-    display: flex;
-    flex-flow: column nowrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 2em;
-    margin: auto;
-    max-width: 800px;
-}
-
-.checkout form {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 2em 1em;
-    align-items: center;
-    width: auto;
-}
-
-
-.checkout form > label {
-    font-size: 1.2em;
-    text-align: right;
-}
-
-.checkout form input {
-    font-size: 1em;
-}
-
-.checkout form input[type=text], .checkout form input[type=number],
-.checkout form input[type=date] {
-    width: 20rem;
-    padding: 0.4em 0.8em;
-}
-
-
-
-.checkout form .input-hint {
-    position: absolute;
-    display: none;
-}
-
-.checkout form .option-group {
-    display: grid;
-    grid-template-columns: 1.6em 1fr;
-    align-items: baseline;
-    justify-items: stretch;
-}
-
-.checkout form .option-group label {
-    font-size: 1em;
-}
-
-/* Summary */
-.summary {
-    display: none;
-}
-
-
 /* Footer */
 
 footer {
