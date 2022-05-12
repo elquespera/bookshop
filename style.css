@@ -395,19 +395,19 @@ main h2 {
 }
 
 
-.checkout form label {
+.checkout form > label {
     font-size: 1.2em;
     text-align: right;
 }
 
 .checkout form input {
-    font-size: 1.2em;
+    font-size: 1em;
 }
 
 .checkout form input[type=text], .checkout form input[type=number],
 .checkout form input[type=date] {
     width: 20rem;
-    padding: 0.3em 0.5em;
+    padding: 0.4em 0.8em;
 }
 
 .checkout form .input-hint {
@@ -423,7 +423,7 @@ main h2 {
 }
 
 .checkout form .option-group label {
-    text-align: left;
+    font-size: 1em;
 }
 
 /* Summary */

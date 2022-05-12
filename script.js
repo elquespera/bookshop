@@ -127,6 +127,9 @@ const footer = {
 
 const pageStructure = [nav, header, main, footer]; 
 
+//jQuery-style selector
+const $ = (selector, from) => from ? from.querySelector(selector) : document.querySelector(selector);
+
 //Renders an Element from Data
 function renderElement(el) {
     el.tag = el.tag ?? 'div';
@@ -136,7 +139,7 @@ function renderElement(el) {
             el.children.forEach(child => item.appendChild(renderElement(child)));
         } 
         else if (prop.slice(0, 2) === 'on') {
-            item.addEventListener(prop.slice(2), event => eval(el[prop]));
+            item.addEventListener(prop.slice(2), _ => eval(el[prop]));
         }
         else if (prop === 'content') {
             item.innerHTML = el[prop];
@@ -170,12 +173,6 @@ class MoreInfo {
 // Basket
 class Basket {
     _visible = false;
-    _basket = document.querySelector('.basket');
-    _basket_content = document.querySelector('.basket-content');
-    _removeAllButton = document.querySelector('.remove-all-btn');
-    _checkoutButton = document.querySelector('.checkout-basket-btn');
-    _badge = document.querySelector('.basket-count-badge');
-    _totalPrice = document.querySelector('.basket-total-price');
     _items = [];
 
     constructor () {
@@ -198,31 +195,30 @@ class Basket {
         return this._items.reduce((total, item) => item.count ? total + item.count * item.price : total + item.price, 0);
     }
 
-    
     renderBasket = () => {
         const basketFragment = new DocumentFragment();
         if (this.basketEmpty) {
             const empty = document.createElement('p');
             empty.textContent = 'Your shopping cart is empty. Please drag and drop items here or click Add to bag to get started.'
             basketFragment.appendChild(empty);
-            this._totalPrice.textContent = '';
+            $('.basket-total-price').textContent = '';
         } else {
             this._items.forEach((item, id) => {
                 basketFragment.appendChild(createBookItem(item, true));
             });
-            this._totalPrice.textContent = 'Total: $' + this.totalPrice;
+            $('.basket-total-price').textContent = 'Total: $' + this.totalPrice;
         }
-        this._basket_content.textContent = '';
-        this._basket_content.appendChild(basketFragment);
-        this._badge.innerHTML = this.itemsCount;
-        this._badge.style.display = this.basketEmpty ? 'none' : 'block';
-        this._removeAllButton.disabled = this.basketEmpty;
-        this._checkoutButton.disabled = this.basketEmpty;
+        $('.basket-content').textContent = '';
+        $('.basket-content').appendChild(basketFragment);
+        $('.basket-count-badge').innerHTML = this.itemsCount;
+        $('.basket-count-badge').style.display = this.basketEmpty ? 'none' : 'block';
+        $('.remove-all-btn').disabled = this.basketEmpty;
+        $('.checkout-basket-btn').disabled = this.basketEmpty;
     }
 
     toggle = () => {
         this._visible = !this._visible;
-        this._basket.style.display = this._visible ? 'flex' : 'none';
+        $('.basket').style.display = this._visible ? 'flex' : 'none';
     }
 
     hide = () => {
@@ -263,20 +259,28 @@ class Basket {
 // More book info class
 class Checkout {
     _pages = ['catalog', 'checkout', 'summary'];
-    _pdivs = this._pages.map(p => document.querySelector('.'+p));
+    _page_blocks = this._pages.map(p => $('.'+p));
     _pageIndex = 0;
-    _checkoutBasketBtn = document.querySelector('.checkout-basket-btn');
 
     get page () {
         return this._pages[this._pageIndex];
+    }
+
+    get isCheckout () {
+        return this.page === 'checkout';
     }
 
     navigate = (page) => {
         let index = this._pages.indexOf(page);
         index = Math.max(0, Math.min(index, page.length)) || 0;
         this._pageIndex = index;
-        this._pdivs.forEach((p, i) => i === index ? p.style.display = 'block' : p.style.display = 'none');
-        this._checkoutBasketBtn.style.display = this.page === 'checkout' ? 'none' : 'block';
+        if (this.isCheckout) {this.clearForm()}
+        this._page_blocks.forEach((p, i) => i === index ? p.style.display = 'block' : p.style.display = 'none');
+        $('.checkout-basket-btn').style.display = this.isCheckout ? 'none' : 'block';
+    }
+
+    clearForm = () => {
+
     }
 
 }
@@ -307,12 +311,12 @@ function initPage () {
     pageStructure.forEach(el => docFragment.appendChild(renderElement(el)));
 
     //Book Data
-    const bookWrapper = docFragment.querySelector('.book-wrapper');
+    const bookWrapper = $('.book-wrapper', docFragment);
     bookData.forEach(book => {
         bookWrapper.appendChild(createBookItem(book));
     });
 
-    document.querySelector('body').appendChild(docFragment);   
+    $('body').appendChild(docFragment);   
 
     moreInfo = new MoreInfo();
     basket = new Basket(); 
@@ -342,7 +346,7 @@ function createBookItem(book, basket = false) {
             {class: 'btn trash-btn', onclick: `basket.removeItem(${book.id})`}
         ];
         if (book.count > 1) {
-            bookItem.children[1].children.unshift({
+            bookItem.children[0].children.unshift({
                 class: 'badge amount-badge', content: 'x' + book.count
         })}
     } else {
@@ -408,11 +412,11 @@ const getCSSVar = (name) => getComputedStyle(document.documentElement).getProper
 
 // Change navbar background transparency on scroll
 document.addEventListener("scroll", () => {
-    const navbar = document.querySelector('nav');
+    const navbar = $('nav');
     const currentPosition = document.documentElement.scrollTop;
     const headerHeight = parseInt(getCSSVar('--header-height')) + parseInt(getCSSVar('--navbar-height'));
     const opacity = Math.min(0.95, (currentPosition / headerHeight).toFixed(2));    
-    let color = getComputedStyle(document.querySelector('header')).backgroundColor;
+    let color = getComputedStyle($('header')).backgroundColor;
     color = color.match(/[\.\d]+/g);
     navbar.style.backgroundColor = `rgba(${color[0]}, ${color[1]}, ${color[2]}, ${opacity})`;
 });
