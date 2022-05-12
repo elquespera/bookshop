@@ -1,92 +1,86 @@
-// Get & Set CSS variables
-const getCSSVar = (name) => getComputedStyle(document.documentElement).getPropertyValue(name);
-const setCSSVar = (name, value) => document.documentElement.style.setProperty(name, value);
+// **** HTML Page Structure & Data ****
+const nav = {
+    tag: 'nav',
+    children: [
+        {className: 'top-menu', children: [
+            {tag: 'h1', onclick: `checkout.navigate('catalog');`, innerHTML: 'Book shop'},
+            {className: 'btn basket-btn', onclick: 'basket.toggle()', children: [
+                {className: 'badge basket-count-badge'}
+            ]}
+        ]},
+        {className: 'basket', ondragover: 'dropAllow(event)', ondrop: 'dropOver(event)', children: [
+            {tag: 'h2', innerHTML: 'Shopping cart'},
+            {className: 'basket-content'},
+            {className: 'basket-controls', children: [
+                {tag: 'h3', className: 'basket-total-price', innerHTML: 'Price: '},
+                {tag: 'button', type: 'button', className: 'remove-all-btn btn-red', onclick: 'basket.clear()', innerHTML: 'Remove all'},
+                {tag: 'button', type: 'button', className: 'checkout-basket-btn', onclick: `checkout.navigate('checkout')`, innerHTML: 'Checkout'}
+            ]},
 
+        ]}
+    ]
+}
 
+const header = {
+    tag: 'header',
+    children: [
+        {className: 'circle color1 left top'},
+        {className: 'circle color2 center bottom'},
+        {className: 'circle color3 right top'},
+        {tag: 'h2', innerHTML: 'Welcome to our bookshop'},
+        {tag: 'h4', innerHTML: 'You came to the right place for book shopping'},
+    ]
+}
+    
+const main = {
+    tag: 'main',
+    children: [
+        {className: 'catalog', children: [
+            {tag: 'h2', className:'title-text', innerHTML: 'Catalog'},
+            {className: 'book-wrapper'}
+        ]},
+        {className: 'checkout', children: [
+            {tag: 'h2', className:'title-text', innerHTML: 'Checkout'},
+            {className: 'checkout-wrapper'}
+        ]},
+        {className: 'summary', children: [
+            {tag: 'h2', className:'title-text', innerHTML: 'Summary'},
+            {className: 'sumarry-wrapper'}
+        ]},        
+    ]
+}
 
-// Change navbar background transparency on scroll
-document.addEventListener("scroll", () => {
-    const navbar = document.querySelector('nav');
-    const currentPosition = document.documentElement.scrollTop;
-    const headerHeight = parseInt(getCSSVar('--header-height')) + parseInt(getCSSVar('--navbar-height'));
-    const opacity = Math.min(0.95, (currentPosition / headerHeight).toFixed(2));    
-    let color = getComputedStyle(document.querySelector('header')).backgroundColor;
-    color = color.match(/[\.\d]+/g);
-    navbar.style.backgroundColor = `rgba(${color[0]}, ${color[1]}, ${color[2]}, ${opacity})`;
-});
+const footer = {
+    tag: 'footer',
+    children: [
+        {className: 'circle color2 left top'},
+        {className: 'circle color3 center bottom'},
+        {className: 'circle color1 right top'},
+    ]
+}
 
+const pageStructure = [nav, header, main, footer]; 
 
-let moreInfo;
-let basket;
-let checkout;
-
-//Fetch book data
-let bookData;
-
-window.addEventListener("load", () => {  
-    fetch('./assets/books.json')
-        .then(response => {
-            return response.json();
-        })
-        .then(data => {
-            bookData = data.map((x, id) => {return {...x, id: id}});
-            parseBookData();
-        });      
-})
-
-//function 
-
-function createBookItem(book, basket = false) {
-    let bookControls;
-    let countBadge = '';
-    let dragAndDrop = '';
-    if (basket) {
-        bookControls = `<div class="btn trash-btn" onclick="basket.removeItem(${book.id})"></div>`;
-        if (book.count > 1) {
-            countBadge = `<div class='badge amount-badge'>x${book.count}</div>`;
+//Renders an Element from Data
+function renderElement(el) {
+    el.tag = el.tag ?? 'div';
+    const item = document.createElement(el.tag);
+    for (const prop in el) {
+        if (prop === 'children') {
+            el.children.forEach(child => item.appendChild(renderElement(child)));
+        } 
+        else if (prop.slice(0, 2) === 'on') {
+            item.addEventListener(prop.slice(2), event => eval(el[prop]));
         }
-    } else {
-        bookControls = 
-            `<button type="button" class="show-more-btn" onclick="moreInfo.show(${book.id})">Show more</button>
-            <div class="book-more-info">
-                <p>${book.description}</p>
-                <button type="button" class="more-info-close-btn btn-red" onclick="moreInfo.hideAll()">Close</button>
-            </div>
-            <button type="button" class='add-to-bag-btn' onclick="basket.addItem(${book.id}); basket.show();">Add to bag</button>`;
-
-        dragAndDrop = `draggable="true" ondragstart="dragStart(event, ${book.id})"`;       
+        else if (prop !== 'tag') {
+            item[prop] = el[prop]
+        }
     }
-    const bookItem = document.createElement('div');
-    bookItem.className = 'book-item';
-    bookItem.innerHTML = 
-            `<div class="book-left-pane" ${dragAndDrop}>
-                ${countBadge}
-                <img src="./assets/images/${book.imageLink}" alt="${book.title}">
-            </div>
-            <div class="book-right-pane"  ${dragAndDrop}>
-                <div class="book-info">
-                    <h4 class="book-authors">${book.author}</h4>
-                    <h3 class="book-title">${book.title}</h3>
-                    <p class="book-price">Price: $${book.price}</p>
-                </div>
-                <div class="book-controls">
-                    ${bookControls}
-                </div>
-            </div>`;  
-    return bookItem;  
+    return item;
 }
 
-function parseBookData () {
-    const bookFragment = new DocumentFragment();
-    bookData.forEach((book) => {
-        bookFragment.appendChild(createBookItem(book));
-    });
-    const bookWrapper = document.querySelector('.book-wrapper');
-    bookWrapper.appendChild(bookFragment);
-    moreInfo = new MoreInfo();
-    basket = new Basket(); 
-    checkout = new Checkout();
-}
+
+// **** Class Declarations ****
 
 // More book info class
 class MoreInfo {
@@ -105,13 +99,12 @@ class MoreInfo {
 }
 
 // Basket
-
 class Basket {
     _visible = false;
     _basket = document.querySelector('.basket');
     _basket_content = document.querySelector('.basket-content');
     _removeAllButton = document.querySelector('.remove-all-btn');
-    _checkoutButton = document.querySelector('.checkout-btn');
+    _checkoutButton = document.querySelector('.checkout-basket-btn');
     _badge = document.querySelector('.basket-count-badge');
     _totalPrice = document.querySelector('.basket-total-price');
     _items = [];
@@ -194,7 +187,6 @@ class Basket {
     clear = () => {
         this._items = [];
         this.renderBasket();
-        console.log(this._items);
     }
 }
 
@@ -203,17 +195,108 @@ class Basket {
 class Checkout {
     _pages = ['catalog', 'checkout', 'summary'];
     _pdivs = this._pages.map(p => document.querySelector('.'+p));
+    _pageIndex = 0;
+    _checkoutBasketBtn = document.querySelector('.checkout-basket-btn');
+
+    get page () {
+        return this._pages[this._pageIndex];
+    }
 
     navigate = (page) => {
         let index = this._pages.indexOf(page);
+        index = Math.max(0, Math.min(index, page.length)) || 0;
+        this._pageIndex = index;
         this._pdivs.forEach((p, i) => i === index ? p.style.display = 'block' : p.style.display = 'none');
+        this._checkoutBasketBtn.style.display = this.page === 'checkout' ? 'none' : 'block';
     }
 
 }
 
+
+let moreInfo;
+let basket;
+let checkout;
+let bookData;
+
+//Fetch book data
+window.addEventListener("load", () => {  
+    fetch('./assets/books.json')
+        .then(response => {
+            return response.json();
+        })
+        .then(data => {
+            bookData = data.map((x, id) => {return {...x, id: id}});
+            initPage();
+        });      
+});
+
+
+//Build all HTML Elements and initialize classes
+function initPage () {    
+    const docFragment = new DocumentFragment();
+    //Overall HTML structure
+    pageStructure.forEach(el => docFragment.appendChild(renderElement(el)));
+
+    //Book Data
+    const bookWrapper = docFragment.querySelector('.book-wrapper');
+    bookData.forEach((book) => {
+        bookWrapper.appendChild(createBookItem(book));
+    });
+
+    document.querySelector('body').appendChild(docFragment);   
+
+    moreInfo = new MoreInfo();
+    basket = new Basket(); 
+    checkout = new Checkout();
+}
+
+//Create book info div for both main page & basket
+function createBookItem(book, basket = false) {
+    const bookItem = {
+        className: 'book-item',
+        children: [
+            {className: 'book-left-pane', children: [
+                {tag: 'img', src: `./assets/images/${book.imageLink}`, alt: book.title}
+            ]},
+            {className: 'book-right-pane', children: [
+                {className: 'book-info', children: [
+                    {tag: 'h4', innerHTML: book.author},
+                    {tag: 'h3', innerHTML: book.title},
+                    {tag: 'p', className: 'book-price', innerHTML: 'Price: '+book.author}
+                ]},
+                {className: 'book-controls'} 
+            ]},
+        ]
+    }
+    if (basket) {
+        bookItem.children[1].children[1].children = [
+            {className: 'btn trash-btn', onclick: `basket.removeItem(${book.id})`}
+        ];
+        if (book.count > 1) {
+            bookItem.children[1].children.unshift({
+                className: 'badge amount-badge', innerHTML: 'x' + book.count
+        })}
+    } else {
+        bookItem.children[1].children[1].children = [
+            {tag: 'button', type: 'button', className: 'show-more-btn',
+             onclick: `moreInfo.show(${book.id})`, innerHTML: 'Show more'},
+            {className: 'book-more-info', children: [
+                {tag: 'p', innerHTML: book.description},
+                {tag: 'button', type: 'button', className: 'more-info-close-btn btn-red',
+                 onclick: 'moreInfo.hideAll()', innerHTML: 'Close'}
+            ]},
+            {tag: 'button', type: 'button', className: 'add-to-bag-btn',
+             onclick: `basket.addItem(${book.id}); basket.show();`, innerHTML: 'Add to bag'}
+        ];
+        bookItem.children[0].draggable = 'true';
+        bookItem.children[0].ondragstart = `dragStart(event, ${book.id})`;
+    }
+    return renderElement(bookItem);  
+}
+
 //Hide modals on click outside it
 window.addEventListener("click", event => {  
-    if (!['.basket', '.basket-btn', '.add-to-bag-btn'].
+    if (!['.basket', '.basket-btn', '.add-to-bag-btn', '.trash-btn'].
         some(c => event.target.closest(c))) {
         basket.hide();
     }
@@ -247,3 +330,20 @@ function dropOver(event) {
     const id = event.dataTransfer.getData("id");
     basket.addItem(parseInt(id));
 }
+
+
+
+// Get & Set CSS variables
+const getCSSVar = (name) => getComputedStyle(document.documentElement).getPropertyValue(name);
+ const setCSSVar = (name, value) => document.documentElement.style.setProperty(name, value);
+
+// Change navbar background transparency on scroll
+document.addEventListener("scroll", () => {
+    const navbar = document.querySelector('nav');
+    const currentPosition = document.documentElement.scrollTop;
+    const headerHeight = parseInt(getCSSVar('--header-height')) + parseInt(getCSSVar('--navbar-height'));
+    const opacity = Math.min(0.95, (currentPosition / headerHeight).toFixed(2));    
+    let color = getComputedStyle(document.querySelector('header')).backgroundColor;
+    color = color.match(/[\.\d]+/g);
+    navbar.style.backgroundColor = `rgba(${color[0]}, ${color[1]}, ${color[2]}, ${opacity})`;
+});

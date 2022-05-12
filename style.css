@@ -64,6 +64,12 @@ nav h1 {
     text-transform: uppercase;
     margin: var(--header-margin);
     letter-spacing: 0.2em;
+    transition: letter-spacing 0.1s ease-out;
+}
+
+nav h1:hover {
+    letter-spacing: 0.3em;
+    cursor: pointer;
 }
 
 button {

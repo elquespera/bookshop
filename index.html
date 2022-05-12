@@ -9,54 +9,6 @@
     <script src="script.js"></script>
 </head>
 <body>
-    <nav>
-        <div class="top-menu">
-            <h1>Bookshop</h1>
-            <div class="btn basket-btn" onclick="basket.toggle()">
-                <div class="badge basket-count-badge">9</div>
-            </div>
-        </div>
-        <div class="basket" ondragover="dropAllow(event)" ondrop="dropOver(event)">
-            <h2>Shopping cart</h2>
-            <div class="basket-content"></div>
-            <div class="basket-controls">
-                <h3 class="basket-total-price">Price: </h3>
-                <button type="button" class='remove-all-btn btn-red' onclick="basket.clear()">Remove all</button>
-                <button type="button" class='checkout-btn' onclick="checkout.navigate('checkout')">Checkout</button>
-            </div>
-        </div>
-    </nav>
-    <header>
-        <div class="circle color1 left top"></div>
-        <div class="circle color2 center bottom"></div>
-        <div class="circle color3 right top"></div>
-        <h2>Welcome to our bookshop</h2>
-        <h4>You came to the right place for book shopping</h4>
-    </header>
 
-    <!-- Main section start -->
-    <main>
-        <div class="catalog">
-            <h2 class=".title-text">Catalog</h2> 
-            <div class="book-wrapper">
-            </div>
-        </div>
-        <div class="checkout">
-            <h2 class=".title-text">Checkout</h2> 
-            <form>
-                <input value="Try">
-            </form>
-        </div>
-        <div class="summary">
-            <h2 class=".title-text">Summary</h2> 
-        </div>
-    </main>
-    <!-- Main section end -->
-
-    <footer>
-        <div class="circle color2 left top"></div>
-        <div class="circle color3 center bottom"></div>
-        <div class="circle color1 right top"></div>
-    </footer>
 </body>
 </html>
