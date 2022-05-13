@@ -1,11 +1,30 @@
 import { $ } from "./page-render.js";
+
 // More book info class
 export class Checkout {
     _pages = ['catalog', 'checkout', 'summary'];
     _page_blocks = this._pages.map(p => $('.'+p));
     _pageIndex = 0;
+    _form = $('.checkout-form');
     _inputs = ['name', 'surname', 'delivery-date', 'street', 
-    'house-number', 'flat-number'];    
+    'house-number', 'flat-number'].map(n => $('#user-' + n));
+
+    constructor () {
+        this._inputs.forEach(input => {
+            input.addEventListener('invalid', event => {
+                // if (input.checkValidity()) {
+                //     input.classList.add('invalid');
+                // } else {
+                //     input.classList.remove('invalid');
+                // }                
+                // event.preventDefault();
+
+            });
+            input.addEventListener('blur', event => {   
+                // input.reportValidity();                    
+            })
+        });
+    }
 
     get page () {
         return this._pages[this._pageIndex];
@@ -26,5 +45,11 @@ export class Checkout {
         $('.checkout-basket-btn').style.display = this.isCheckout ? 'none' : 'block';
         document.documentElement.scrollTop = 0;
     }
+
+    // validate = (input) => {
+    //     input.checkValidity();
+    //     //console.log(this._inputs[0].getAttribute('pattern'));
+    //     //this._form.validate();
+    // }
 
 }

@@ -10,9 +10,11 @@
     --main-color: rgb(223, 240, 255);
     --footer-color: var(--header-color);
     --light-color: white;
+    --tooltip-color: rgba(248, 250, 187, 0.719);
     --shadow-color: rgba(29, 29, 29, 0.4);
     --shadow: 0 0 60px 0px var(--shadow-color);
     --shadow-btn: 0 0 30px 0px var(--shadow-color);
+    --shadow-tooltip: 0 0 10px 0px var(--shadow-color);
     --button-color: rgb(47, 155, 255); 
     --red-color: red;
     --circle-color1: #cdb4dbff;
@@ -72,7 +74,7 @@ nav h1:hover {
     cursor: pointer;
 }
 
-button {
+button, input[type=submit] {
     background-color: var(--button-color);
     color: var(--light-color);
     margin: 0;
@@ -85,7 +87,7 @@ button {
     white-space: nowrap;
 }
 
-button:hover {
+button:hover, input[type=submit]:hover {
     box-shadow: var(--shadow-btn);
     cursor: pointer;
     margin: 0 0 3px 0;

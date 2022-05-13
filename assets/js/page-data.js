@@ -42,37 +42,47 @@ const main = {
         {class: 'checkout', children: [
             {tag: 'h2', class:'title-text', content: 'Checkout'},
             {class: 'checkout-wrapper', children: [
-                {tag: 'form', children: [
+                {tag: 'form', class: 'checkout-form', children: [
                     {class: 'form-inputs', children: [
                         {tag: 'label', for: 'user-name', content: 'Name'},
-                        {tag: 'input', type: 'text', id: 'user-name', name: 'user-name', 
-                            required: '', pattern: '[a-zA-Z]{4,}', 
-                            title: 'Name should be at least four characters long.'
-                        },
+                        {children: [
+                            {tag: 'input', type: 'text', id: 'user-name', name: 'user-name', 
+                                required: '', pattern: '[a-zA-Z]{4,}', 
+                                title: 'Name should be at least four characters long.'},
+                            {class: 'input-hint', content: 'Name should be at least four characters long.'},
+                        ]},
                         {tag: 'label', for: 'user-surname', content: 'Surname'},
-                        {tag: 'input', type: 'text', id: 'user-surname', name: 'user-surname',
+                        {children: [                            
+                            {tag: 'input', type: 'text', id: 'user-surname', name: 'user-surname',
                             required: '', pattern: '[a-zA-Z]{5,}',
-                            title: 'Name should be at least five characters long.'
-                        },    
+                            title: 'Surname should be at least five characters long.'},
+                            {class: 'input-hint', content: 'Surname should be at least five characters long.'},
+                        ]},    
                         {tag: 'label', for: 'user-delivery-date', content: 'Delivery date'},
-                        {tag: 'input', type: 'date', id: 'user-delivery-date', name: 'user-delivery-date',
-                            required: '', 
-                            title: 'Date should be tomorrow at the earliest.'
-                        },
+                        {children: [
+                            {tag: 'input', type: 'date', id: 'user-delivery-date', name: 'user-delivery-date',
+                                required: '', title: 'Date should be tomorrow at the earliest.'},
+                            {class: 'input-hint', content: 'Date should be tomorrow at the earliest.'},
+                        ]},
                         {tag: 'label', for: 'user-street', content: 'Street'},
-                        {tag: 'input', type: 'text', id: 'user-street', name: 'user-street',
-                            required: '', pattern: '[a-zA-Z0-9]{5,}',
-                            title: 'Street should be at least five characters long.',    
-                        },
+                        {children: [
+                            {tag: 'input', type: 'text', id: 'user-street', name: 'user-street',
+                                required: '', pattern: '[a-zA-Z0-9]{5,}',
+                                title: 'Street should be at least five characters long.'},
+                            {class: 'input-hint', content: 'Street should be at least five characters long.'},
+                        ]},
                         {tag: 'label', for: 'user-house-number', content: 'House number'},
-                        {tag: 'input', type: 'text', id: 'user-house-number', name: 'user-house-number', 
-                            required: '', pattern: '[0-9]+', title: 'Use numbers only.'
-                        },
+                        {children: [
+                            {tag: 'input', type: 'text', id: 'user-house-number', name: 'user-house-number', 
+                                required: '', pattern: '[0-9]+', title: 'Use numbers only.'},
+                            {class: 'input-hint', content: 'Use numbers only.'},
+                        ]},
                         {tag: 'label', for: 'user-flat-number', content: 'Flat number'},
-                        {tag: 'input', type: 'text', id: 'user-flat-number', name: 'user-flat-number', 
-                            required: '', pattern: '[0-9-]+',
-                            title: 'Numbers or dashes only.',    
-                        },
+                        {children: [
+                            {tag: 'input', type: 'text', id: 'user-flat-number', name: 'user-flat-number', 
+                                required: '', pattern: '[0-9-]+', title: 'Numbers or dashes only.'},
+                            {class: 'input-hint', content: 'Numbers or dashes only.'},    
+                        ]},
                         {tag: 'label', content: 'Payment type'},
                         {children: [
                             {class:'option-group', children: [
