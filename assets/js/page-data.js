@@ -110,7 +110,10 @@ const main = {
                             content: 'Choose up to two gifts.'},    
                         ]},
                     ]},
-                    {tag: 'input', type: 'submit', content: 'Submit'},
+                    {class: 'submit-wrapper', children: [
+                        {tag: 'input', type: 'submit', id: 'submit-btn', content: 'Submit'},
+                        {tag: 'button', type: 'button', class: 'btn-red', content: 'Cancel'}
+                    ]}
                 ]},
                                 
             ]}

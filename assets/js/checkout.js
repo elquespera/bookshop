@@ -8,21 +8,37 @@ export class Checkout {
     _form = $('.checkout-form');
     _inputs = ['name', 'surname', 'delivery-date', 'street', 
     'house-number', 'flat-number'].map(n => $('#user-' + n));
+    _payment_radios = ['card', 'cash'].map(n => $('#user-payment-' + n));
+    _gift_checkboxes = ['wrapping', 'postcard', 'discount', 'pen'].map(n => $('#user-gift-' + n));
+    _all_inputs = [...this._inputs, ...this._payment_radios, ...this._gift_checkboxes];
+    _hints = document.querySelectorAll('.input-hint');
+    _submit = $('#submit-btn');
 
     constructor () {
-        this._inputs.forEach(input => {
-            input.addEventListener('invalid', event => {
-                // if (input.checkValidity()) {
-                //     input.classList.add('invalid');
-                // } else {
-                //     input.classList.remove('invalid');
-                // }                
-                // event.preventDefault();
-
+        [...this._inputs, ...this._payment_radios].forEach(input => {
+            input.addEventListener('invalid', event => {         
+                event.preventDefault();
             });
+        });
+
+        this._inputs.forEach(input => {
             input.addEventListener('blur', event => {   
-                // input.reportValidity();                    
+                this.reportValid(input); 
+                this._submit.disabled = !this.checkValid();             
             })
+        });
+        [...this._payment_radios, ...this._gift_checkboxes].forEach(checkbox => {
+            checkbox.addEventListener('change', event => {
+                this.reportValid(checkbox);
+                this._submit.disabled = !this.checkValid();   
+            });
+        });
+
+        this._form.addEventListener('reset', _ => {
+            console.log('reset');
+            this._hints.forEach(hint => hint.style.display = 'none');
+            this._inputs.forEach(input => input.classList.remove('invalid'));
+            this._submit.disabled = true;
         });
     }
 
@@ -46,10 +62,30 @@ export class Checkout {
         document.documentElement.scrollTop = 0;
     }
 
-    // validate = (input) => {
-    //     input.checkValidity();
-    //     //console.log(this._inputs[0].getAttribute('pattern'));
-    //     //this._form.validate();
-    // }
-
+    //Checks if a field is valid
+    checkValid = (input) => {
+        if (input) { 
+            let valid;
+            if (this._gift_checkboxes.some(x => input.isSameNode(x))) {
+                valid = this._gift_checkboxes.reduce((t, x) => t + Number(x.checked), 0) <= 2;
+            } else {
+                valid = input.checkValidity();
+            }
+            return valid;
+        } else {
+            return this._all_inputs.every(input => this.checkValid(input));
+        }
+        
+    }
+    //Updates styles based on validity
+    reportValid = (input) => {
+        const hint = $('.input-hint', input.parentElement) || $('.input-hint', input.parentElement.parentElement);
+        if (this.checkValid(input)) {
+            hint.style.display = 'none';
+            input.classList.remove('invalid');
+        } else {
+            hint.style.display = 'block';
+            input.classList.add('invalid');
+        }
+    }
 }

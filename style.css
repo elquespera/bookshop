@@ -93,7 +93,7 @@ button:hover, input[type=submit]:hover {
     margin: 0 0 3px 0;
 }
 
-button:disabled {
+button:disabled, input[type=submit]:disabled {
     background-color: gray;
     box-shadow: none;
     cursor: auto;

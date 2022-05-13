@@ -39,14 +39,16 @@
     font-size: 1em;
 }
 
-.form-inputs input[type=text], .form-inputs input[type=number],
+.form-inputs input[type=text],
 .form-inputs input[type=date] {
     width: 20rem;
     padding: 0.4em 0.8em;
+    border: solid 2px var(--button-color);
+    border-radius: 0.4em;
 }
 
-.form-inputs .invalid {
-    border: solid 1px red;
+input[type=text].invalid, input[type=date].invalid {
+    border: solid 2px var(--red-color);
 }
 
 .form-inputs > div {
@@ -63,7 +65,7 @@
     box-shadow: var(--shadow-tooltip);
     width: fit-content;
     background-color: var(--tooltip-color);
-    /* display: none; */
+    display: none;
 }
 
 .form-inputs .input-hint::before {
@@ -79,6 +81,17 @@
 
 .form-inputs .option-group label {
     font-size: 1em;
+}
+
+form .submit-wrapper {
+    display: flex;
+    width: 100%;
+    gap: 20px;
+    justify-content: center;
+}
+
+.submit-wrapper > * {
+    min-width: 25%;
 }
 
 /* Summary */
