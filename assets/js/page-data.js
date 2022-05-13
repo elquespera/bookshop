@@ -75,7 +75,7 @@ const main = {
                         {children: [
                             {tag: 'input', type: 'text', id: 'user-house-number', name: 'user-house-number', 
                                 required: '', pattern: '[0-9]+', title: 'Use numbers only.'},
-                            {class: 'input-hint', content: 'Use numbers only.'},
+                            {class: 'input-hint', content: 'Numbers only.'},
                         ]},
                         {tag: 'label', for: 'user-flat-number', content: 'Flat number'},
                         {children: [
@@ -92,7 +92,7 @@ const main = {
                                 {tag: 'label', for: 'user-payment-cash', content: 'Cash'},
                             ]},
                             {class: 'input-hint', id: 'input-hint-payment-type', 
-                            content: 'Select payment type please.'},    
+                            content: 'Select payment type, please.'},    
                         ]},
                         {tag: 'label', content: 'Choose your gifts'},
                         {children: [
@@ -107,12 +107,12 @@ const main = {
                                 {tag: 'label', for: 'user-gift-pen', content: 'Branded pen or pencil'},                   
                             ]},
                             {class: 'input-hint', id: 'input-hint-gift', 
-                            content: 'Choose up to two gifts.'},    
+                            content: 'Choose up to 2 gifts per order.'},    
                         ]},
                     ]},
                     {class: 'submit-wrapper', children: [
-                        {tag: 'input', type: 'submit', id: 'submit-btn', content: 'Submit'},
-                        {tag: 'button', type: 'button', class: 'btn-red', content: 'Cancel'}
+                        {tag: 'input', type: 'submit', id: 'submit-btn', value: 'Complete order'},
+                        {tag: 'button', type: 'button', class: 'btn-red', content: 'Cancel', onclick: 'checkout.navigate("catalog")'}
                     ]}
                 ]},
                                 

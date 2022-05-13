@@ -27,7 +27,7 @@ export class Checkout {
                 this._submit.disabled = !this.checkValid();             
             })
         });
-        [...this._payment_radios, ...this._gift_checkboxes].forEach(checkbox => {
+        [...this._payment_radios, ...this._gift_checkboxes, this._inputs[2]].forEach(checkbox => {
             checkbox.addEventListener('change', event => {
                 this.reportValid(checkbox);
                 this._submit.disabled = !this.checkValid();   
@@ -68,6 +68,10 @@ export class Checkout {
             let valid;
             if (this._gift_checkboxes.some(x => input.isSameNode(x))) {
                 valid = this._gift_checkboxes.reduce((t, x) => t + Number(x.checked), 0) <= 2;
+            } else if (input.id === 'user-delivery-date') {
+                const today = new Date();
+                today.setHours(23, 59, 59, 998);
+                return new Date(input.value) > today;            
             } else {
                 valid = input.checkValidity();
             }
