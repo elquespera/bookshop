@@ -40,25 +40,28 @@ export class Checkout {
             this._inputs.forEach(input => input.classList.remove('invalid'));
             this._submit.disabled = true;
         });
+
+        this._form.addEventListener('submit', event => {
+            event.preventDefault();
+            this.navigate('summary');
+            // $('.summary-content').innerHTML = 
+            return false;
+        });
     }
 
     get page () {
         return this._pages[this._pageIndex];
     }
 
-    get isCheckout () {
-        return this.page === 'checkout';
-    }
-
     navigate = (page) => {
         let index = this._pages.indexOf(page);
         index = Math.max(0, Math.min(index, page.length)) || 0;
         this._pageIndex = index;
-        if (this.isCheckout) {
-            $('form').reset();
+        if (page === 'checkout') {
+            this._form.reset();
         }
-        this._page_blocks.forEach((p, i) => i === index ? p.style.display = 'block' : p.style.display = 'none');
         $('.checkout-basket-btn').style.display = this.isCheckout ? 'none' : 'block';
+        this._page_blocks.forEach((p, i) => i === index ? p.style.display = 'block' : p.style.display = 'none');        
         document.documentElement.scrollTop = 0;
     }
 

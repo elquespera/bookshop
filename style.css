@@ -119,6 +119,10 @@ button:disabled, input[type=submit]:disabled {
 }
 
 .trash-btn {
+    background-image: url('./assets/icons/trash-can.svg');
+}
+
+.close-btn {
     background-image: url('./assets/icons/circle-xmark.svg');
 }
 

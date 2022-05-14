@@ -111,7 +111,7 @@ const main = {
                         ]},
                     ]},
                     {class: 'submit-wrapper', children: [
-                        {tag: 'input', type: 'submit', id: 'submit-btn', value: 'Complete order'},
+                        {tag: 'input', type: 'submit', id: 'submit-btn', value: 'Complete order',},
                         {tag: 'button', type: 'button', class: 'btn-red', content: 'Cancel', onclick: 'checkout.navigate("catalog")'}
                     ]}
                 ]},
@@ -119,8 +119,12 @@ const main = {
             ]}
         ]},
         {class: 'summary', children: [
-            {tag: 'h2', class:'title-text', content: 'Summary'},
-            {class: 'sumarry-wrapper'}
+            {tag: 'h2', class:'title-text', content: 'Your order has been created!'},
+            {class: 'sumarry-wrapper', children: [
+                {tag: 'h3', class: 'summary-message', content: 'It will be delivered to', children: [
+                    {tag: 'span', class: 'summary-content'}
+                ]},
+            ]}
         ]},        
     ]
 }

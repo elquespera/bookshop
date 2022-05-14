@@ -45,7 +45,7 @@ function renderBookItem(book, basket = false) {
                 {class: 'book-info', children: [
                     {tag: 'h4', content: book.author},
                     {tag: 'h3', content: book.title},
-                    {tag: 'p', class: 'book-price', content: 'Price: '+book.author}
+                    {tag: 'p', class: 'book-price', content: 'Price: $'+book.price}
                 ]},
                 {class: 'book-controls'} 
             ]},
