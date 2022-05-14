@@ -10,6 +10,7 @@ const nav = {
             ]}
         ]},
         {class: 'basket', ondragover: 'dropAllow(event)', ondrop: 'dropOver(event)', children: [
+            {class: 'btn close-btn', onclick: 'basket.hide()'},
             {tag: 'h2', content: 'Shopping cart'},
             {class: 'basket-content'},
             {class: 'basket-controls', children: [
