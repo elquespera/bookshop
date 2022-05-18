@@ -10,4 +10,5 @@ document.addEventListener("scroll", () => {
     let color = getComputedStyle($('header')).backgroundColor;
     color = color.match(/[\.\d]+/g);
     $('nav').style.backgroundColor = `rgba(${color[0]}, ${color[1]}, ${color[2]}, ${opacity})`;
+    // $('')
 });
