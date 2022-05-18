@@ -122,9 +122,13 @@ const main = {
         {class: 'summary', children: [
             {tag: 'h2', class:'title-text', content: 'Your order has been created!'},
             {class: 'sumarry-wrapper', children: [
-                {tag: 'h3', class: 'summary-message', content: 'It will be delivered to', children: [
-                    {tag: 'span', class: 'summary-content'}
+                {tag: 'h3', class: 'summary-message', children: [
+                    {tag: 'span', content: 'Thank your for placing an order with us, '},
+                    {tag: 'span', class: 'summary-user-name'},
+                    {tag: 'span', content: '. It will be delivered to '},
+                    {tag: 'span', class: 'summary-address'}
                 ]},
+                {tag: 'button', type: 'button', content: 'Return to catalog', onclick: 'checkout.navigate("catalog")'}
             ]}
         ]},        
     ]

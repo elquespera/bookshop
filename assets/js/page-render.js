@@ -149,4 +149,4 @@ window.addEventListener("keydown", event => {
     }
 });
 
-export { $, renderBookItem, bookData }
+export { $, renderBookItem, bookData, basket }

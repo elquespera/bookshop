@@ -1,4 +1,5 @@
 import { $ } from "./page-render.js";
+import { basket } from "./page-render.js";
 
 // More book info class
 export class Checkout {
@@ -34,7 +35,9 @@ export class Checkout {
 
         this._form.addEventListener('submit', event => {
             event.preventDefault();
-            $('.summary-content').innerHTML = `Your order will be sent to ${this._inputs[3]}`;
+            $('.summary-user-name').innerHTML = `${this._inputs[0].value} ${this._inputs[1].value}`;
+            $('.summary-address').innerHTML = `${this._inputs[3].value} ${this._inputs[4].value} ${this._inputs[5].value} on ${this._inputs[2].value}.`;
+            basket.clear();
             this.navigate('summary');
         });
 
