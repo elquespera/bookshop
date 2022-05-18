@@ -68,7 +68,7 @@ nav h1 {
     text-transform: uppercase;
     margin: var(--header-margin);
     padding-left: 1.2em;
-    background-image: url('./assets/icons/book.svg');
+    background-image: url('../icons/book.svg');
     background-repeat:  no-repeat;
     background-position: 0px center;
     background-size: var(--icon-size);
@@ -128,18 +128,18 @@ button:disabled, input[type=submit]:disabled {
 }
 
 .trash-btn {
-    background-image: url('./assets/icons/trash-can.svg');
+    background-image: url('../icons/trash-can.svg');
 }
 
 .close-btn {
-    background-image: url('./assets/icons/circle-xmark.svg');
+    background-image: url('../icons/circle-xmark.svg');
     position: absolute;
     right: 0;
     top: 0;
 }
 
 nav .basket-btn {
-    background-image: url('./assets/icons/basket-shopping.svg');
+    background-image: url('../icons/basket-shopping.svg');
     margin: var(--header-margin);
 }
 
