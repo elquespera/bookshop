@@ -4,7 +4,8 @@
     --header-margin: 10px;
     --header-height: 140px;
     --footer-height: 150px;
-    --modal-animation: modalAnimate 0.4s ease-in-out;   
+    --modal-animation: modalAnimate 0.4s ease-in-out;  
+    --icon-size: 1.8rem; 
 
     --header-color: #bde0feff;
     --main-color: rgb(223, 240, 255);
@@ -20,6 +21,7 @@
     --circle-color1: #cdb4dbff;
     --circle-color2: #a2d2ffff;
     --circle-color3: #ffafccff;    
+    
 }
 
 /* Reset defaults */
@@ -62,15 +64,22 @@ nav .top-menu {
 }
 
 nav h1 {
-    font-size: 3em;
+    font-size: 2.4em;
     text-transform: uppercase;
     margin: var(--header-margin);
+    padding-left: 1.2em;
+    background-image: url('./assets/icons/book.svg');
+    background-repeat:  no-repeat;
+    background-position: 0px center;
+    background-size: var(--icon-size);
+    opacity: 0.7;
     letter-spacing: 0.2em;
-    transition: letter-spacing 0.1s ease-out;
+    transition: all 0.1s ease-out;
 }
 
 nav h1:hover {
     letter-spacing: 0.3em;
+    opacity: 1;
     cursor: pointer;
 }
 
@@ -103,7 +112,7 @@ button:disabled, input[type=submit]:disabled {
 .btn {
     background-position: center;
     background-repeat: no-repeat;
-    background-size: 1.8rem;
+    background-size: var(--icon-size);
     width: 3rem;
     height: 3rem;    
     opacity: 0.7;
@@ -286,6 +295,7 @@ main {
     width: 1200px;
     padding: 50px;
     margin: auto;
+    min-height: calc(100vh - var(--header-height) - var(--navbar-height) - var(--footer-height));
 }
 
 main h2 {

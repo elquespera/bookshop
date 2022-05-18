@@ -21,21 +21,18 @@ export class Checkout {
             });
         });
 
+        const blurOrChange = (input) => {
+            this.reportValid(input); 
+            this._submit.disabled = !this.checkValid();               
+        }
+
         this._inputs.forEach(input => {
-            input.addEventListener('blur', event => {   
-                this.reportValid(input); 
-                this._submit.disabled = !this.checkValid();             
-            })
-        });
-        [...this._payment_radios, ...this._gift_checkboxes, this._inputs[2]].forEach(checkbox => {
-            checkbox.addEventListener('change', event => {
-                this.reportValid(checkbox);
-                this._submit.disabled = !this.checkValid();   
-            });
-        });
+            input.addEventListener('blur', event => blurOrChange(input))});
+
+        [...this._payment_radios, ...this._gift_checkboxes, this._inputs[2]].forEach(input => {
+            input.addEventListener('change', event => blurOrChange(input))});
 
         this._form.addEventListener('reset', _ => {
-            console.log('reset');
             this._hints.forEach(hint => hint.style.display = 'none');
             this._inputs.forEach(input => input.classList.remove('invalid'));
             this._submit.disabled = true;
@@ -43,8 +40,8 @@ export class Checkout {
 
         this._form.addEventListener('submit', event => {
             event.preventDefault();
+            $('.summary-content').innerHTML = `Your order will be sent to ${this._inputs[3]}`;
             this.navigate('summary');
-            // $('.summary-content').innerHTML = 
             return false;
         });
     }
@@ -60,12 +57,19 @@ export class Checkout {
         if (page === 'checkout') {
             this._form.reset();
         }
-        $('.checkout-basket-btn').style.display = this.isCheckout ? 'none' : 'block';
-        this._page_blocks.forEach((p, i) => i === index ? p.style.display = 'block' : p.style.display = 'none');        
+        ['.checkout-basket-btn', '.remove-all-btn'].
+            forEach(el => $(el).style.display = page === 'checkout' ? 'none' : 'block');
+        document.querySelectorAll('.trash-btn')?.
+            forEach(el => el.style.display = page === 'checkout' ? 'none' : 'block');            
+        this._page_blocks.
+            forEach((p, i) => p.style.display = i === index ? 'block' : 'none');        
         document.documentElement.scrollTop = 0;
     }
 
-    //Checks if a field is valid
+    //Checks if an input is valid
+    //combining HTML5 validation on text inputs &
+    //custom validation for date and checkboxes.
+    //If no input is given, checks the validity of all inputs
     checkValid = (input) => {
         if (input) { 
             let valid;
