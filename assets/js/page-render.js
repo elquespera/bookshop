@@ -97,15 +97,17 @@ function initPage () {
 }
 
 //Fetch book data and initialize the page
-window.addEventListener("load", () => {  
-    fetch('./assets/books.json')
+document.addEventListener("readystatechange", () => {  
+    if (document.readyState === 'complete') {
+        fetch('./assets/books.json')
         .then(response => {
             return response.json();
         })
         .then(data => {
             bookData = data.map((x, id) => {return {...x, id: id}});
             initPage();
-        });      
+        });
+    }      
 });
 
 

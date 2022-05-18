@@ -32,17 +32,16 @@ export class Checkout {
         [...this._payment_radios, ...this._gift_checkboxes, this._inputs[2]].forEach(input => {
             input.addEventListener('change', event => blurOrChange(input))});
 
-        this._form.addEventListener('reset', _ => {
-            this._hints.forEach(hint => hint.style.display = 'none');
-            this._inputs.forEach(input => input.classList.remove('invalid'));
-            this._submit.disabled = true;
-        });
-
         this._form.addEventListener('submit', event => {
             event.preventDefault();
             $('.summary-content').innerHTML = `Your order will be sent to ${this._inputs[3]}`;
             this.navigate('summary');
-            return false;
+        });
+
+        this._form.addEventListener('reset', _ => {
+            this._hints.forEach(hint => hint.style.display = 'none');
+            this._inputs.forEach(input => input.classList.remove('invalid'));
+            this._submit.disabled = true;
         });
     }
 
