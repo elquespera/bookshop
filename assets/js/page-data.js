@@ -1,16 +1,15 @@
 // **** HTML Page Structure & Data ****
-
 const nav = {
     tag: 'nav',
     children: [
         {class: 'top-menu', children: [
             {tag: 'h1', onclick: `checkout.navigate('catalog');`, content: 'Book shop'},
-            {class: 'btn basket-btn', onclick: 'basket.toggle()', children: [
+            {class: 'btn basket-btn', title: 'Show/hide bag', onclick: 'basket.toggle()', children: [
                 {class: 'badge basket-count-badge'}
             ]}
         ]},
         {class: 'basket', ondragover: 'dropAllow(event)', ondrop: 'dropOver(event)', children: [
-            {class: 'btn close-btn', onclick: 'basket.hide()'},
+            {class: 'btn close-btn', title: 'Hide bag', onclick: 'basket.hide()'},
             {tag: 'h2', content: 'Shopping cart'},
             {class: 'basket-content'},
             {class: 'basket-controls', children: [

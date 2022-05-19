@@ -47,9 +47,21 @@
     border-radius: 0.4em;
 }
 
+.form-inputs input[type=text]:focus,
+.form-inputs input[type=date]:focus {
+    box-shadow: 0 0 6px 0px var(--button-color);
+    outline: none;
+}
+
 input[type=text].invalid, input[type=date].invalid {
     border: solid 2px var(--red-color);
 }
+
+
+input[type=text].invalid:focus, input[type=date].invalid:focus {
+    box-shadow: 0 0 6px 0px var(--red-color);
+} 
+
 
 .form-inputs > div {
     position: relative;

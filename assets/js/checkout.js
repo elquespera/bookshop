@@ -36,7 +36,7 @@ export class Checkout {
         this._form.addEventListener('submit', event => {
             event.preventDefault();
             $('.summary-user-name').innerHTML = `${this._inputs[0].value} ${this._inputs[1].value}`;
-            $('.summary-address').innerHTML = `${this._inputs[3].value} ${this._inputs[4].value} ${this._inputs[5].value} on ${this._inputs[2].value}.`;
+            $('.summary-address').innerHTML = `${this._inputs[3].value} ${this._inputs[4].value} ${this._inputs[5].value} on ${this._inputs[2].value}.`;        
             basket.clear();
             this.navigate('summary');
         });
@@ -52,6 +52,7 @@ export class Checkout {
         return this._pages[this._pageIndex];
     }
 
+    //Navigate to a given page
     navigate = (page) => {
         let index = this._pages.indexOf(page);
         index = Math.max(0, Math.min(index, page.length)) || 0;
@@ -62,7 +63,10 @@ export class Checkout {
         ['.checkout-basket-btn', '.remove-all-btn'].
             forEach(el => $(el).style.display = page === 'checkout' ? 'none' : 'block');
         document.querySelectorAll('.trash-btn')?.
-            forEach(el => el.style.display = page === 'checkout' ? 'none' : 'block');            
+            forEach(el => el.style.display = page === 'checkout' ? 'none' : 'block'); 
+        $('.basket-btn').style.display = page === 'summary' ? 'none' : 'block';
+            
+        //Display current page    
         this._page_blocks.
             forEach((p, i) => p.style.display = i === index ? 'block' : 'none');        
         document.documentElement.scrollTop = 0;

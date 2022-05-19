@@ -53,7 +53,7 @@ function renderBookItem(book, basket = false) {
     }
     if (basket) {
         bookItem.children[1].children[1].children = [
-            {class: 'btn trash-btn', onclick: `basket.removeItem(${book.id})`}
+            {class: 'btn trash-btn', title: 'Remove from bag', onclick: `basket.removeItem(${book.id})`}
         ];
         if (book.count > 1) {
             bookItem.children[0].children.unshift({
@@ -97,9 +97,8 @@ function initPage () {
 }
 
 //Fetch book data and initialize the page
-document.addEventListener("readystatechange", () => {  
-    if (document.readyState === 'complete') {
-        fetch('./assets/books.json')
+document.addEventListener("DOMContentLoaded", () => {  
+    fetch('./assets/books.json')
         .then(response => {
             return response.json();
         })
@@ -107,12 +106,10 @@ document.addEventListener("readystatechange", () => {
             bookData = data.map((x, id) => {return {...x, id: id}});
             initPage();
         });
-    }      
 });
 
 
 // Drag & Drop
-
 function dragStart(event, id) {
     event.dataTransfer.setData("id", id);
     basket.show();
