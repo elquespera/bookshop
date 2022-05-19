@@ -15,7 +15,7 @@ const nav = {
             {class: 'basket-controls', children: [
                 {tag: 'h3', class: 'basket-total-price', content: 'Price: '},
                 {tag: 'button', type: 'button', class: 'remove-all-btn btn-red', onclick: 'basket.clear()', content: 'Remove all'},
-                {tag: 'button', type: 'button', class: 'checkout-basket-btn', onclick: `checkout.navigate('checkout'); basket.hide();`, content: 'Checkout'}
+                {tag: 'button', type: 'button', class: 'checkout-basket-btn', onclick: `checkout.navigate('checkout'); basket.hide();`, content: 'Confirm order'}
             ]},
         ]}
     ]
@@ -67,7 +67,7 @@ const main = {
                         {tag: 'label', for: 'user-street', content: 'Street'},
                         {children: [
                             {tag: 'input', type: 'text', id: 'user-street', name: 'user-street',
-                                required: '', pattern: '[a-zA-Z0-9]{5,}',
+                                required: '', pattern: '[a-zA-Z0-9 ]{5,}',
                                 title: 'Street should be at least five characters long.'},
                             {class: 'input-hint', content: 'Street should be at least five characters long.'},
                         ]},
@@ -80,7 +80,7 @@ const main = {
                         {tag: 'label', for: 'user-flat-number', content: 'Flat number'},
                         {children: [
                             {tag: 'input', type: 'text', id: 'user-flat-number', name: 'user-flat-number', 
-                                required: '', pattern: '[0-9-]+', title: 'Numbers or dashes only.'},
+                                required: '', pattern: '[0-9]+|([0-9]+-[0-9]+)', title: 'Numbers and dashes only.'},
                             {class: 'input-hint', content: 'Numbers or dashes only.'},    
                         ]},
                         {tag: 'label', content: 'Payment type'},
