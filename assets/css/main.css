@@ -4,8 +4,7 @@
     --header-margin: 10px;
     --header-padding-left: 2.6rem;
     --header-height: 140px;
-    --footer-height: 150px;
-    --modal-animation: modalAnimate 0.4s ease-in-out;  
+    --footer-height: 150px;  
     --icon-size: 1.8rem; 
     --icon-opacity: 0.7;
 
@@ -130,7 +129,7 @@ button:disabled, input[type=submit]:disabled {
 }
 
 .trash-btn {
-    background-image: url('../icons/trash-can.svg');
+    background-image: url('../icons/circle-xmark.svg');
 }
 
 .close-btn {
@@ -176,24 +175,26 @@ nav .basket-btn {
 
 /* Basket */
 
-@keyframes modalAnimate {
-    from {opacity: 0}
-    to {opacity: 1}
-  }
+@keyframes basketAnimate {
+    from {opacity: 0; top: -100vh}
+    to {opacity: 1; top: var(--navbar-height)}
+}
 
 nav .basket {
     position: absolute;
     right: 0;
+    top: var(--navbar-height);
     margin-right: 20px;
     min-width: 460px;
     max-width: 500px;
-    max-height: 90vh;
+    min-height: 350px;
+    max-height: calc(100vh - 2 * var(--navbar-height));
     background-color: var(--light-color);
     padding: 40px;
     box-shadow: var(--shadow);
     display: none;
     flex-flow: column nowrap;
-    animation: var(--modal-animation);
+    animation: basketAnimate 0.3s ease-in;
 }
 
 .basket > h2 {
@@ -381,12 +382,17 @@ main h2 {
     gap: 20px;
 }
 
+@keyframes modalAnimate {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
 .book-more-info {
     display: none;
     position: absolute;
     background-color: var(--light-color);
     box-shadow: var(--shadow);
-    animation: var(--modal-animation);
+    animation: modalAnimate 0.3s ease-in;
     max-width: 300px;
     padding: 1.5em;
     flex-flow: column nowrap;
