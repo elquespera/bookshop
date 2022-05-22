@@ -49,14 +49,14 @@ const main = {
                             {tag: 'input', type: 'text', id: 'user-name', name: 'user-name', 
                                 required: '', pattern: '[a-zA-Z]{4,}', 
                                 title: 'Name should be at least four characters long.'},
-                            {class: 'input-hint', content: 'Name should be at least four characters long.'},
+                            {class: 'input-hint', content: 'Name should be at least four letters long.'},
                         ]},
                         {tag: 'label', for: 'user-surname', content: 'Surname'},
                         {children: [                            
                             {tag: 'input', type: 'text', id: 'user-surname', name: 'user-surname',
                             required: '', pattern: '[a-zA-Z]{5,}',
                             title: 'Surname should be at least five characters long.'},
-                            {class: 'input-hint', content: 'Surname should be at least five characters long.'},
+                            {class: 'input-hint', content: 'Surname should be at least five letters long.'},
                         ]},    
                         {tag: 'label', for: 'user-delivery-date', content: 'Delivery date'},
                         {children: [
