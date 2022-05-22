@@ -420,20 +420,22 @@ footer .footer-content {
     position: relative;
     z-index: 2;
     display: flex;
+    flex-flow: row wrap;
     gap: 3em;
     justify-content: center;
     align-items: center;
+    align-content: space-around;
 }
 
 footer img {
 	height: 2em;
 }
 
+footer img.codewars {
+    height: 1.5em;
+}
 
-
-
-
-
+/* Media queries */
 
 @media only screen and (max-width: 1200px) {
     main {

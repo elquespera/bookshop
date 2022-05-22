@@ -146,8 +146,10 @@ const footer = {
             {tag: 'a', href: 'https://github.com/elquespera/', children: [
                 {tag: 'img', src: './assets/icons/github-logo.png', alt: 'GitHub'}
             ]},
+            {tag: 'a', href: 'https://www.codewars.com/users/elquespera', children: [
+                {tag: 'img', class: 'codewars', src: 'https://www.codewars.com/users/elquespera/badges/micro', alt: 'Codewars'}
+            ]},
         ]}
-     
     ]
 }
 
