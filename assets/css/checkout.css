@@ -24,8 +24,8 @@
 .checkout .form-inputs {
     display: grid;
     grid-template-columns: 1fr 2fr;
-    gap: 2em 1em;
-    align-items: center;
+    gap: 1em 1em;
+    align-items: baseline;
     width: auto;
 }
 
@@ -68,20 +68,16 @@ input[type=text].invalid:focus, input[type=date].invalid:focus {
 }
 
 .form-inputs .input-hint {
-    position: absolute;
+    position: relative;
+    top: 0px;
     color: var(--red-color);
-    margin-left: 1em;
     padding: 0.2em 0.4em;
-    border-radius: 0em 0.4em 0.4em 0.4em;
     bottom: -2em;
-    box-shadow: var(--shadow-tooltip);
-    width: fit-content;
-    background-color: var(--tooltip-color);
     display: none;
 }
 
 .form-inputs .input-hint::before {
-    content: '*';
+    content: '* ';
 }
 
 .form-inputs .option-group {
