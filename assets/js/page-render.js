@@ -89,6 +89,8 @@ function initPage () {
         bookWrapper.appendChild(renderBookItem(book));
     });
 
+    $('header > h2', docFragment).innerHTML = window.innerWidth;
+
     $('body').appendChild(docFragment);   
 
     moreInfo = new MoreInfo();
