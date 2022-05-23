@@ -7,7 +7,3 @@ document.addEventListener("scroll", () => {
     color = color.match(/[\.\d]+/g);
     $('nav').style.backgroundColor = `rgba(${color[0]}, ${color[1]}, ${color[2]}, ${opacity})`;
 });
-
-window.addEventListener('resize', (e) => {
-    $('header > h2').innerHTML = e.target.innerWidth;
-});

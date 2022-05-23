@@ -276,12 +276,16 @@ header h4 {
     top: calc(var(--navbar-height) + var(--header-height) - 8vw);
 }
 
+footer .bottom {
+    top: calc(var(--footer-height) - 8vw);
+}
+
 .center {
-    right: 30vw;
+    left: 40vw;
 }
 
 .right {
-  right: 5rem;
+  right: -5rem;
 }
 
 .color1 {
@@ -377,6 +381,7 @@ main h2 {
 
 .book-controls {
     display: flex;
+    position: relative;
     align-items: flex-end;
     justify-content: flex-start;
     flex-flow: row wrap;
@@ -394,6 +399,8 @@ main h2 {
     background-color: var(--light-color);
     box-shadow: var(--shadow);
     animation: modalAnimate 0.3s ease-in;
+    z-index: 20;
+    min-width: 200px;
     max-width: 300px;
     padding: 1.5em;
     flex-flow: column nowrap;
@@ -403,11 +410,29 @@ main h2 {
 /* Footer */
 
 footer {
-    height: var(--footer-height);
     background-color: var(--footer-color);
     position: relative;
     overflow: hidden;
 }
+
+footer .footer-content {
+    min-height: var(--footer-height);
+    position: relative;
+    z-index: 2;
+    display: flex;
+    gap: 3em;
+    justify-content: center;
+    align-items: center;
+}
+
+footer img {
+	height: 2em;
+}
+
+
+
+
+
 
 
 @media only screen and (max-width: 1200px) {
@@ -424,7 +449,7 @@ footer {
 
 /* Mobile devices */
 
-@media only screen and (max-width: 600px) {
+@media (max-width: 600px) {
     nav .basket {
         margin: 0;
         width: 100%;
@@ -432,9 +457,7 @@ footer {
         max-height: 100vh;
     }
     nav h1:hover {
-        letter-spacing: 0.1em;
-        opacity: 1;
-        cursor: pointer;
+        letter-spacing: 0.2em;
     }    
     .checkout form {
         display: grid;

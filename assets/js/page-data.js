@@ -139,6 +139,15 @@ const footer = {
         {class: 'circle color2 left top'},
         {class: 'circle color3 center bottom'},
         {class: 'circle color1 right top'},
+        {class: 'footer-content', children: [
+            {tag: 'a', href: 'https://rs.school/', children: [
+                {tag: 'img', src: './assets/icons/rs-school.svg', alt: 'RS School'}
+            ]},
+            {tag: 'a', href: 'https://github.com/elquespera/', children: [
+                {tag: 'img', src: './assets/icons/github-logo.png', alt: 'GitHub'}
+            ]},
+        ]}
+     
     ]
 }
 
